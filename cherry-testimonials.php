@@ -55,7 +55,8 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'admin' ), 2 );
 
 			// Load public-facing stylesheet.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+			add_action( 'wp_enqueue_scripts',         array( $this, 'enqueue_styles' ) );
+			add_filter( 'cherry_compiler_static_css', array( $this, 'add_style_to_compiler' ) );
 
 			// Adds options.
 			add_filter( 'cherry_layouts_options_list',   array( $this, 'add_cherry_options' ), 11 );
@@ -86,13 +87,6 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 			 * @since 1.0.0
 			 */
 			define( 'CHERRY_TESTI_VERSION', '1.0.0' );
-
-			/**
-			 * Set the slug of the plugin.
-			 *
-			 * @since 1.0.0
-			 */
-			define( 'CHERRY_TESTI_SLUG', basename( dirname( __FILE__ ) ) );
 
 			/**
 			 * Set the name for the 'meta_key' value in the 'wp_postmeta' table.
@@ -147,14 +141,6 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 
 			if ( is_admin() ) {
 				require_once( CHERRY_TESTI_DIR . 'admin/includes/class-cherry-testimonials-admin.php' );
-				require_once( CHERRY_TESTI_DIR . 'admin/includes/class-cherry-update/class-cherry-plugin-update.php' );
-
-				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
-				$Cherry_Plugin_Update -> init( array(
-						'version'			=> CHERRY_TESTI_VERSION,
-						'slug'				=> CHERRY_TESTI_SLUG,
-						'repository_name'	=> CHERRY_TESTI_SLUG
-				));
 			}
 		}
 
@@ -165,6 +151,22 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 		 */
 		public function enqueue_styles() {
 			wp_enqueue_style( 'cherry-testimonials', plugins_url( 'public/assets/css/style.css', __FILE__ ), array(), CHERRY_TESTI_VERSION );
+		}
+
+		/**
+		 * Pass style handle to CSS compiler.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $handles CSS handles to compile.
+		 */
+		function add_style_to_compiler( $handles ) {
+			$handles = array_merge(
+				array( 'cherry-testimonials' => plugins_url( 'public/assets/css/style.css', __FILE__ ) ),
+				$handles
+			);
+
+			return $handles;
 		}
 
 		/**
