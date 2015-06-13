@@ -44,6 +44,10 @@ class Cherry_Testimonials_Shortcode extends Cherry_Testimonials_Data {
 		add_filter( 'cherry_templater/data/shortcodes',  array( $this, 'shortcodes' ) );
 		add_filter( 'cherry_templater_target_dirs',      array( $this, 'add_target_dir' ),     11 );
 		add_filter( 'cherry_templater_macros_buttons',   array( $this, 'add_macros_buttons' ), 10, 2 );
+
+		// Modify swiper_carousel shortcode to aloow it process team
+		// add_filter( 'cherry_shortcodes_add_carousel_macros',     array( $this, 'extend_carousel_macros' ) );
+		// add_filter( 'cherry-shortcode-swiper-carousel-postdata', array( $this, 'add_carousel_data' ), 10, 3 );
 	}
 
 	/**
@@ -303,6 +307,40 @@ class Cherry_Testimonials_Shortcode extends Cherry_Testimonials_Data {
 				'close' => '',
 			);
 		}
+
+		return $macros_buttons;
+	}
+
+	/**
+	 * Add team specific macros buttons into caousel shortcode
+	 *
+	 * @param  array  $macros_buttons  default macros buttons
+	 */
+	public function extend_carousel_macros( $macros_buttons ) {
+		$macros_buttons['author'] = array(
+			'id'    => 'cherry_author',
+			'value' => __( "Author's name (Testimonials only)", 'cherry-testimonials' ),
+			'open'  => '%%AUTHOR%%',
+			'close' => '',
+		);
+		$macros_buttons['avatar'] = array(
+			'id'    => 'cherry_avatar',
+			'value' => __( "Author's avatar (Testimonials only)", 'cherry-testimonials' ),
+			'open'  => '%%AVATAR%%',
+			'close' => '',
+		);
+		$macros_buttons['email'] = array(
+			'id'    => 'cherry_email',
+			'value' => __( "Author's email (Testimonials only)", 'cherry-testimonials' ),
+			'open'  => '%%EMAIL%%',
+			'close' => '',
+		);
+		$macros_buttons['url'] = array(
+			'id'    => 'cherry_url',
+			'value' => __( "Author's URL (Testimonials only)", 'cherry-testimonials' ),
+			'open'  => '%%URL%%',
+			'close' => '',
+		);
 
 		return $macros_buttons;
 	}
