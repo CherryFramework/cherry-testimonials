@@ -140,8 +140,8 @@ class Cherry_Testimonials_Shortcode extends Cherry_Testimonials_Data {
 				'size' => array(
 					'type'    => 'slider',
 					'min'     => 10,
-					'max'     => 1000,
-					'step'    => 10,
+					'max'     => 500,
+					'step'    => 1,
 					'default' => 50,
 					'name'    => __( 'Avatar size', 'cherry-testimonials' ),
 					'desc'    => __( 'Avatar size (in pixels)', 'cherry-testimonials' ),

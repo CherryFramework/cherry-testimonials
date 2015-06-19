@@ -14,6 +14,7 @@ while ( have_posts() ) : the_post(); ?>
 
 		$args = array(
 			'id'           => get_the_ID(),
+			'size'         => 100,
 			'template'     => 'single.tmpl',
 			'location'     => 'single',
 			'custom_class' => 'testimonials-page-single',
