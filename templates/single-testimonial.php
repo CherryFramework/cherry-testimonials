@@ -10,8 +10,7 @@ while ( have_posts() ) : the_post(); ?>
 
 	<article <?php if ( function_exists( 'cherry_attr' ) ) cherry_attr( 'post' ); ?>>
 
-	<?php
-		do_action( 'cherry_post_before' );
+	<?php do_action( 'cherry_entry_before' );
 
 		$args = array(
 			'id'           => get_the_ID(),
@@ -25,6 +24,6 @@ while ( have_posts() ) : the_post(); ?>
 
 	</article>
 
-	<?php do_action( 'cherry_post_after' ); ?>
+	<?php do_action( 'cherry_entry_after' ); ?>
 
 <?php endwhile; ?>
