@@ -89,6 +89,13 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 			define( 'CHERRY_TESTI_VERSION', '1.0.0' );
 
 			/**
+			 * Set the version number of the plugin.
+			 *
+			 * @since 1.0.0
+			 */
+			define( 'CHERRY_TESTI_SLUG', basename( dirname( __FILE__ ) ) );
+
+			/**
 			 * Set the name for the 'meta_key' value in the 'wp_postmeta' table.
 			 *
 			 * @since 1.0.0
@@ -141,6 +148,14 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 
 			if ( is_admin() ) {
 				require_once( CHERRY_TESTI_DIR . 'admin/includes/class-cherry-testimonials-admin.php' );
+				require_once( CHERRY_TESTI_DIR . 'admin/includes/class-cherry-update/class-cherry-plugin-update.php' );
+
+				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
+				$Cherry_Plugin_Update -> init( array(
+						'version'			=> CHERRY_TESTI_VERSION,
+						'slug'				=> CHERRY_TESTI_SLUG,
+						'repository_name'	=> CHERRY_TESTI_SLUG
+				));
 			}
 		}
 
