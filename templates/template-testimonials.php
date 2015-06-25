@@ -17,6 +17,7 @@ if ( have_posts() ) :
 			<?php
 				$args = array(
 					'limit'        => 4,
+					'size'         => 100,
 					'pager'        => 'true',
 					'template'     => 'page.tmpl',
 					'location'     => 'page',
