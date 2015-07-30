@@ -181,7 +181,7 @@ class Cherry_Testimonials_Shortcode {
 					),
 					'default' => 'full',
 					'name'    => __( 'Post content', 'cherry-testimonials' ),
-					'desc'    => __( 'Choose to display an part or full content', 'cherry-testimonials' ),
+					'desc'    => __( 'Choose to display a part or full content', 'cherry-testimonials' ),
 				),
 				'content_length' => array(
 					'type'    => 'number',
