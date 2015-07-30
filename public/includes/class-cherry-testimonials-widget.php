@@ -1,6 +1,6 @@
 <?php
 /**
- * Cherry Testimonials
+ * Cherry Testimonials widget.
  *
  * @package   Cherry_Testimonials
  * @author    Cherry Team
@@ -30,7 +30,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 * @var   object
 	 */
-	private $data;
+	private $data = null;
 
 	/*--------------------------------------------------*/
 	/* Constructor
@@ -46,7 +46,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 			)
 		);
 
-		$this->data = new Cherry_Testimonials_Data;
+		$this->data = Cherry_Testimonials_Data::get_instance();
 
 		// Refreshing the widget's cached output with each new post.
 		add_action( 'save_post',    array( $this, 'flush_widget_cache' ) );
@@ -166,6 +166,9 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		if ( isset( $instance['content_type'] ) && in_array( $instance['content_type'], array_keys( $this->get_content_type() ) ) ) {
 			$atts['content_type'] = $instance['content_type'];
 		}
+		if ( ! empty( $instance['template'] ) ) {
+			$atts['template'] = $instance['template'];
+		}
 
 		$atts['custom_class'] = $instance['custom_class'];
 
@@ -180,7 +183,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		 */
 		$atts = apply_filters( 'cherry_testimonials_widget_args', $atts );
 
-		$widget_string .= $this->the_testimonials( $atts );
+		$widget_string .= $this->data->the_testimonials( $atts );
 		$widget_string .= $after_widget;
 
 
@@ -225,6 +228,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		$instance['orderby']      = esc_attr( $new_instance['orderby'] );
 		$instance['order']        = esc_attr( $new_instance['order'] );
 		$instance['content_type'] = esc_attr( $new_instance['content_type'] );
+		$instance['template']     = esc_attr( $new_instance['template'] );
 
 		// The checkbox is returning a Boolean (true/false), so we check for that.
 		$instance['display_author'] = (bool) esc_attr( $new_instance['display_author'] );
@@ -259,6 +263,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 			'content_type'   => 'full',
 			'content_length' => 55,
 			'size'           => 50,
+			'template'       => 'default.tmpl',
 			'custom_class'   => '',
 		) );
 
@@ -273,6 +278,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		$orderby        = $this->get_orderby_options();
 		$order          = $this->get_order_options();
 		$content_type   = $this->get_content_type();
+		$template       = esc_attr( $instance['template'] );
 		$custom_class   = esc_attr( $instance['custom_class'] );
 
 		// Display the admin form.
@@ -314,7 +320,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Get an array of the available order options.
+	 * Get an array of the available content type options.
 	 *
 	 * @since  1.0.0
 	 * @return array

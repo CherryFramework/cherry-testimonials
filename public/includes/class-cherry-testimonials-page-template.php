@@ -25,6 +25,14 @@ class Cherry_Testimonials_Page_Template {
 	private static $instance = null;
 
 	/**
+	 * Posts number per team archive and page template
+	 *
+	 * @since 1.0.2
+	 * @var   integer
+	 */
+	public static $posts_per_archive_page = 6;
+
+	/**
 	 * The array of templates that this plugin tracks.
 	 *
 	 * @since 1.0.0
@@ -40,6 +48,9 @@ class Cherry_Testimonials_Page_Template {
 	public function __construct() {
 
 		$this->templates = array();
+
+		// Set posts per archive testimonials page.
+		add_action( 'pre_get_posts', array( $this, 'set_posts_per_archive_page' ) );
 
 		// Add a filter to the page attributes metabox to inject our template into the page template cache.
 		add_filter( 'page_attributes_dropdown_pages_args', array( $this, 'register_templates' ) );
@@ -61,6 +72,25 @@ class Cherry_Testimonials_Page_Template {
 		// Adding support for theme templates to be merged and shown in dropdown.
 		$templates = wp_get_theme()->get_page_templates();
 		$templates = array_merge( $templates, $this->templates );
+
+		/**
+		 * Filter posts per archive page value.
+		 *
+		 * @since 1.0.2
+		 * @var   int
+		 */
+		self::$posts_per_archive_page = apply_filters(
+			'cherry_testimonials_posts_per_archive_page',
+			self::$posts_per_archive_page
+		);
+	}
+
+	public function set_posts_per_archive_page( $query ) {
+		if( ! is_admin()
+			&& ( $query->is_post_type_archive( CHERRY_TESTI_NAME ) || $query->is_tax( CHERRY_TESTI_NAME . '_category' ) )
+			&& $query->is_main_query() ) {
+				$query->set( 'posts_per_page', self::$posts_per_archive_page );
+		}
 	}
 
 	/**

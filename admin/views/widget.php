@@ -69,6 +69,11 @@
 	<label for="<?php echo $this->get_field_id( 'content_length' ); ?>"><?php _e( 'Content Length:', 'cherry-testimonials' ); ?></label>
 	<input type="text" name="<?php echo $this->get_field_name( 'content_length' ); ?>" value="<?php echo $content_length; ?>" class="widefat" id="<?php echo $this->get_field_id( 'content_length' ); ?>" />
 </p>
+<!-- Widget Template: Text Input -->
+<p>
+	<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e( 'Template:', 'cherry-testimonials' ); ?></label>
+	<input type="text" name="<?php echo $this->get_field_name( 'template' ); ?>" value="<?php echo $template; ?>" class="widefat" id="<?php echo $this->get_field_id( 'template' ); ?>" />
+</p>
 <!-- Widget Custom CSS Class: Text Input -->
 <p>
 	<label for="<?php echo $this->get_field_id( 'custom_class' ); ?>"><?php _e( 'Custom CSS Class:', 'cherry-testimonials' ); ?></label>
