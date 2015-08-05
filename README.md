@@ -12,6 +12,7 @@ A testimonials management plugin for WordPress.
 * UPD: Refactor `Cherry_Testimonials_Data` class
 * UPD: Templates file - added a hooks
 * ADD: `Cherry_Testimonials_Template_Callbacks` class - macros-handler
+* ADD: Macros-button to the Shortcodes Tempalter (swiper_carousel)
 
 #### v1.0.1 ####
 
