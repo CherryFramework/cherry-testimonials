@@ -45,7 +45,7 @@ class Cherry_Testimonials_Template_Callbacks {
 	public function get_avatar() {
 		global $post;
 
-		if ( true !== $this->atts['display_avatar'] ) {
+		if ( isset( $this->atts['display_avatar'] ) && false === $this->atts['display_avatar'] ) {
 			return;
 		}
 
@@ -90,7 +90,7 @@ class Cherry_Testimonials_Template_Callbacks {
 	public function get_author() {
 		global $post;
 
-		if ( true !== $this->atts['display_author'] ) {
+		if ( isset( $this->atts['display_author'] ) && false === $this->atts['display_author'] ) {
 			return;
 		}
 
