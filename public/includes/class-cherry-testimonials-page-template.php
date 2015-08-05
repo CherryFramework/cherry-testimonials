@@ -86,10 +86,15 @@ class Cherry_Testimonials_Page_Template {
 	}
 
 	public function set_posts_per_archive_page( $query ) {
-		if( ! is_admin()
-			&& ( $query->is_post_type_archive( CHERRY_TESTI_NAME ) || $query->is_tax( CHERRY_TESTI_NAME . '_category' ) )
-			&& $query->is_main_query() ) {
-				$query->set( 'posts_per_page', self::$posts_per_archive_page );
+		if ( ! is_admin()
+			&& $query->is_main_query()
+			&& (
+				$query->is_post_type_archive( CHERRY_TESTI_NAME )
+				|| ( is_tax() && !empty( $query->queried_object->taxonomy ) && ( CHERRY_TESTI_NAME . '_category' === $query->queried_object->taxonomy ) )
+				)
+			) {
+
+			$query->set( 'posts_per_page', self::$posts_per_archive_page );
 		}
 	}
 
