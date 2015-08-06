@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Testimonials
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A testimonials management plugin for WordPress.
- * Version:     1.0.2-beta2
+ * Version:     1.0.2
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-testimonials
@@ -86,7 +86,7 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_TESTI_VERSION', '1.0.2-beta2' );
+			define( 'CHERRY_TESTI_VERSION', '1.0.2' );
 
 			/**
 			 * Set the version number of the plugin.
