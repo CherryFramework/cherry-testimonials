@@ -71,7 +71,13 @@ class Cherry_Testimonials_Registration {
 			'supports'        => $supports,
 			'public'          => true,
 			'capability_type' => 'post',
-			'rewrite'         => array( 'slug' => 'testimonial-view', ), // Permalinks format
+			'hierarchical'    => false, // Hierarchical causes memory issues - WP loads all records!
+			'rewrite'         => array(
+				'slug'       => 'testimonial-view',
+				'with_front' => false,
+				'feeds'      => true
+			),
+			'query_var'       => true,
 			'menu_position'   => null,
 			'menu_icon'       => ( version_compare( $GLOBALS['wp_version'], '3.8', '>=' ) ) ? 'dashicons-testimonial' : '',
 			'can_export'      => true,

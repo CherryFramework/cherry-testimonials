@@ -55,13 +55,13 @@ class Cherry_Testimonials_Meta_Boxes {
 					),
 				array(
 					'name' => __( 'E-mail:', 'cherry-testimonials' ),
-					'desc' => __( 'Enter in an e-mail address.', 'cherry-testimonials' ),
+					'desc' => __( 'Enter an e-mail address.', 'cherry-testimonials' ),
 					'id'   => 'email',
 					'std'  => '',
 					),
 				array(
 					'name' => __( 'URL:', 'cherry-testimonials' ),
-					'desc' => __( 'Enter a URL.', 'cherry-testimonials' ),
+					'desc' => __( 'Enter the URL.', 'cherry-testimonials' ),
 					'id'   => 'url',
 					'std'  => '',
 					),
