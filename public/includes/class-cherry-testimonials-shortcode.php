@@ -99,7 +99,7 @@ class Cherry_Testimonials_Shortcode {
 
 		$shortcodes[ self::$name ] = array(
 			'name'  => __( 'Testimonials', 'cherry-testimonials' ), // Shortcode name.
-			'desc'  => 'This is a Testimonials Shortcode',
+			'desc'  => __( 'This is a Testimonials Shortcode', 'cherry-testimonials' ),
 			'type'  => 'single', // Can be 'wrap' or 'single'.
 			'group' => 'content', // Can be 'content', 'box', 'media' or 'other'.
 			'atts'  => array( // List of shortcode params (attributes).
