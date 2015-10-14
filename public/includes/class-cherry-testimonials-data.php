@@ -147,6 +147,10 @@ class Cherry_Testimonials_Data {
 			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
 		}
 
+		if ( ! empty( $args['template'] ) ) {
+			$css_class .= $this->get_template_class( $args['template'] ) . ' ';
+		}
+
 		if ( !empty( $args['custom_class'] ) ) {
 			$css_class .= esc_attr( $args['custom_class'] );
 		}
@@ -553,6 +557,26 @@ class Cherry_Testimonials_Data {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get CSS class name for shortcode by template name
+	 *
+	 * @since  1.0.3
+	 * @param  string $template template name
+	 * @return string|bool false
+	 */
+	public function get_template_class( $template ) {
+
+		if ( ! $template ) {
+			return false;
+		}
+
+		// Use the same filter for all cherry-related shortcodes
+		$prefix = apply_filters( 'cherry_shortcodes_template_class_prefix', 'template' );
+		$class  = sprintf( '%s-%s', esc_attr( $prefix ), esc_attr( str_replace( '.tmpl', '', $template ) ) );
+
+		return $class;
 	}
 
 	/**
