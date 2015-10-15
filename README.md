@@ -4,6 +4,13 @@ A testimonials management plugin for WordPress.
 
 ##Change log##
 
+#### v1.1.0 ####
+
+* NEW: Custom fields in metabox - `position`, `company name`
+* ADD: Pass template name into testimonials block wrapper CSS classes
+* UPD: Minify CSS
+* UPD: Translated string
+
 #### v1.0.2 ####
 
 * UPD: Optimize a shortcode registration
