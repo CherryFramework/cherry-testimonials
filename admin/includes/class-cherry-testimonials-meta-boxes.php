@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles custom post meta boxes for the 'testimonial' post type.
+ * Handles custom post meta boxes for the `testimonial` post type.
  *
  * @package   Cherry_Testimonials_Admin
  * @author    Cherry Team
@@ -26,7 +26,7 @@ class Cherry_Testimonials_Meta_Boxes {
 	 */
 	public function __construct() {
 		add_action( 'add_meta_boxes_' . CHERRY_TESTI_NAME, array( $this, 'add_meta_boxes' ) );
-		add_action( 'save_post',      array( $this, 'save_post'      ), 10, 2 );
+		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 	}
 
 	/**
@@ -52,22 +52,50 @@ class Cherry_Testimonials_Meta_Boxes {
 					'desc' => __( "Enter author's name.", 'cherry-testimonials' ),
 					'id'   => 'name',
 					'std'  => '',
-					),
+					'type' => 'text',
+				),
 				array(
 					'name' => __( 'E-mail:', 'cherry-testimonials' ),
 					'desc' => __( 'Enter an e-mail address.', 'cherry-testimonials' ),
 					'id'   => 'email',
 					'std'  => '',
-					),
+					'type' => 'text',
+				),
+				array(
+					'name' => __( 'Position:', 'cherry-testimonials' ),
+					'desc' => __( 'Position in Company.', 'cherry-testimonials' ),
+					'id'   => 'position',
+					'std'  => '',
+					'type' => 'text',
+				),
+				array(
+					'name' => __( 'Company Name:', 'cherry-testimonials' ),
+					'desc' => __( 'Enter the author Company Name.', 'cherry-testimonials' ),
+					'id'   => 'company',
+					'std'  => '',
+					'type' => 'text',
+				),
 				array(
 					'name' => __( 'URL:', 'cherry-testimonials' ),
-					'desc' => __( 'Enter the URL.', 'cherry-testimonials' ),
+					'desc' => __( "Enter the link to author's site, or company website.", 'cherry-testimonials' ),
 					'id'   => 'url',
 					'std'  => '',
-					),
-				)
+					'type' => 'text',
+				),
+				// array(
+				// 	'name'   => __( 'Foo', 'cherry-testimonials' ),
+				// 	'desc'   => __( 'foo description', 'cherry-testimonials' ),
+				// 	'id'     => 'foo',
+				// 	'std'    => '',
+				// 	'type'   => 'select',
+				// 	'option' => array(
+				// 		'option1' => __( 'Option 1' ),
+				// 		'option2' => __( 'Option 2' ),
+				// 		'option3' => __( 'Option 3' ),
+				// 	)
+				// ),
 			)
-		);
+		) );
 
 		/**
 		 * Add meta box to the administrative interface.
@@ -100,29 +128,65 @@ class Cherry_Testimonials_Meta_Boxes {
 		foreach ( $metabox['args'] as $field ) :
 
 			// Check if set the 'name' and 'id' value for custom field. If not - don't add field.
-			if ( !isset( $field['name'] ) || !isset( $field['id'] ) )
+			if ( ! isset( $field['name'] ) || ! isset( $field['id'] ) ) {
 				continue;
+			}
 
 			// Define the field attributes value.
 			$field_id   = CHERRY_TESTI_POSTMETA . '_' . $field['id'];
 			$field_name = CHERRY_TESTI_POSTMETA . '[' . $field['id'] . ']';
 			$field_desc = ( isset( $field['desc'] ) ) ? $field['desc'] : '';
-			$field_std  = ( isset( $field['std'] ) ) ? $field['std'] : '';
+			$field_std  = ( isset( $field['std'] ) )  ? $field['std'] : '';
+			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : 'text';
 
 			// Get current post meta data.
 			$post_meta = get_post_meta( $post->ID, CHERRY_TESTI_POSTMETA, true );
 
-			if ( !empty( $post_meta ) && isset( $post_meta[ $field['id'] ] ) ) {
+			if ( ! empty( $post_meta ) && isset( $post_meta[ $field['id'] ] ) ) {
 				$field_value = $post_meta[ $field['id'] ];
 			} else {
 				$field_value = $field_std;
 			}
 
-			echo '<p>';
-				echo '<label for="' . esc_attr( $field_id ) . '">' . esc_html( $field['name'] ) . '</label>';
-				echo '<input type="text" class="widefat" name="' . esc_attr( $field_name ) . '" id="' . esc_attr( $field_id ) . '" value="' . esc_attr( $field_value ) . '">';
-				echo '<small>' . esc_html( $field_desc ) . '</small>';
-			echo '</p>';
+			if ( 'select' === $field_type && empty( $field['option'] ) ) {
+				$field_type = 'text';
+			}
+
+			$element = '';
+
+			switch ( $field_type ) {
+
+				case 'text':
+					$element .= '<input type="text" class="widefat" name="' . esc_attr( $field_name ) . '" id="' . esc_attr( $field_id ) . '" value="' . esc_attr( $field_value ) . '">';
+					$element = apply_filters( "cherry_testimonials_{$field_type}_field_callback", $element, $field_name, $field_id, $field_value );
+					break;
+
+				case 'select':
+					$option = '';
+					foreach ( $field['option'] as $k => $v ) {
+						$option .= '<option value="' . esc_attr( $k ) . '" ' . selected( $field_value, $k, false ) . '>' . esc_attr( $v ) . '</option>';
+					}
+
+					$element .= '<select class="widefat" name="' . esc_attr( $field_name ) . '" id="' . esc_attr( $field_id ) . '">' . $option . '</select>';
+					$element = apply_filters( "cherry_testimonials_{$field_type}_field_callback", $element, $field_name, $field_id, $field_value );
+					break;
+
+				default:
+					break;
+			}
+
+			$format = '<p><label for="%1$s">%2$s</label>%3$s<small>%4$s</small></p>';
+
+			/**
+			 * Filres a field HTML-wrapper format.
+			 *
+			 * @since 1.1.0
+			 * @param string $format
+			 * @param array  $field
+			 */
+			$format = apply_filters( 'cherry_testimonials_field_format', $format, $field );
+
+			printf( $format, esc_attr( $field_id ), esc_html( $field['name'] ), $element, esc_html( $field_desc ) );
 
 		endforeach;
 
@@ -147,8 +211,10 @@ class Cherry_Testimonials_Meta_Boxes {
 	public function save_post( $post_id, $post ) {
 
 		// Verify the nonce.
-		if ( !isset( $_POST['cherry_testi_options_meta_nonce'] ) || !wp_verify_nonce( $_POST['cherry_testi_options_meta_nonce'], plugin_basename( __FILE__ ) ) )
+		if ( ! isset( $_POST['cherry_testi_options_meta_nonce'] )
+			|| ! wp_verify_nonce( $_POST['cherry_testi_options_meta_nonce'], plugin_basename( __FILE__ ) ) ) {
 			return;
+		}
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -159,55 +225,75 @@ class Cherry_Testimonials_Meta_Boxes {
 		$post_type = get_post_type_object( $post->post_type );
 
 		// Check if the current user has permission to edit the post.
-		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
+		}
 
 		// Don't save if the post is only a revision.
-		if ( 'revision' == $post->post_type )
+		if ( 'revision' == $post->post_type ) {
 			return;
+		}
+
+		// Check if $_POST have a needed key.
+		if ( empty( $_POST[ CHERRY_TESTI_POSTMETA ] ) ) {
+			return;
+		}
 
 		// Array of new post meta value.
 		$new_meta_value = array();
 
-		// Check if $_POST have a needed key.
-		if ( isset( $_POST[ CHERRY_TESTI_POSTMETA ] ) && !empty( $_POST[ CHERRY_TESTI_POSTMETA ] ) ) {
+		foreach ( $_POST[ CHERRY_TESTI_POSTMETA ] as $key => $value ) {
 
-			foreach ( $_POST[ CHERRY_TESTI_POSTMETA ] as $key => $value ) {
-
-				if ( 'email' == $key ) {
-					$new_meta_value[ $key ] = sanitize_email( $value );
-					continue;
-				}
-
-				if ( 'url' == $key ) {
-					$new_meta_value[ $key ] = esc_url_raw( $value );
-					continue;
-				}
-
-				// Sanitize the user input.
-				$new_meta_value[ $key ] = sanitize_text_field( $value );
+			if ( 'email' == $key ) {
+				$new_meta_value[ $key ] = sanitize_email( $value );
+				continue;
 			}
 
+			if ( 'url' == $key ) {
+				$new_meta_value[ $key ] = esc_url_raw( $value );
+				continue;
+			}
+
+			/**
+			 * Retrieve a custom value sanitized.
+			 *
+			 * @since 1.1.0
+			 * @param bool
+			 * @param string $value
+			 */
+			$sanitized = apply_filters( 'cherry_testimonials_custom_sanitize_value', false, $value );
+
+			if ( false !== $sanitized ) {
+				$new_meta_value[ $key ] = $sanitized;
+				continue;
+			}
+
+			// Sanitize the user input.
+			$new_meta_value[ $key ] = sanitize_text_field( $value );
 		}
 
 		// Check if nothing found in $_POST array.
-		if ( empty( $new_meta_value ) )
+		if ( empty( $new_meta_value ) ) {
 			return;
+		}
 
 		// Get current post meta data.
 		$meta_value = get_post_meta( $post_id, CHERRY_TESTI_POSTMETA, true );
 
 		// If a new meta value was added and there was no previous value, add it.
-		if ( $new_meta_value && '' == $meta_value )
+		if ( $new_meta_value && '' == $meta_value ) {
 			add_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $new_meta_value, true );
+		}
 
 		// If the new meta value does not match the old value, update it.
-		elseif ( $new_meta_value && $new_meta_value != $meta_value )
+		elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
 			update_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $new_meta_value );
+		}
 
 		// If there is no new meta value but an old value exists, delete it.
-		elseif ( '' == $new_meta_value && $meta_value )
+		elseif ( '' == $new_meta_value && $meta_value ) {
 			delete_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $meta_value );
+		}
 	}
 
 	/**
