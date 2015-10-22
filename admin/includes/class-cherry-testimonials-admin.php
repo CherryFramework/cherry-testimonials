@@ -46,7 +46,7 @@ class Cherry_Testimonials_Admin {
 	public function load_post_meta_boxes() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'testimonial' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'testimonial' === $screen->post_type ) {
 			require_once( trailingslashit( CHERRY_TESTI_DIR ) . 'admin/includes/class-cherry-testimonials-meta-boxes.php' );
 		}
 	}
@@ -59,7 +59,7 @@ class Cherry_Testimonials_Admin {
 	public function load_edit() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && 'testimonial' === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && 'testimonial' === $screen->post_type ) {
 			add_action( 'admin_head', array( $this, 'print_styles' ) );
 		}
 	}
@@ -72,9 +72,7 @@ class Cherry_Testimonials_Admin {
 	public function print_styles() { ?>
 		<style type="text/css">
 		.edit-php .wp-list-table td.thumbnail.column-thumbnail,
-		.edit-php .wp-list-table th.manage-column.column-thumbnail,
-		.edit-php .wp-list-table td.author_name.column-author_name,
-		.edit-php .wp-list-table th.manage-column.column-author_name {
+		.edit-php .wp-list-table th.manage-column.column-thumbnail {
 			text-align: center;
 		}
 		</style>
@@ -92,10 +90,12 @@ class Cherry_Testimonials_Admin {
 		$columns['cb'] = $post_columns['cb'];
 
 		// Add custom columns and overwrite the 'title' column.
-		$columns['title']       = __( 'Title', 'cherry-testimonials' );
-		$columns['author_name'] = __( 'Author', 'cherry-testimonials' );
-		$columns['date']        = __( 'Date', 'cherry-testimonials' );
-		$columns['thumbnail']   = __( 'Thumbnail', 'cherry-testimonials' );
+		$columns['title']        = __( 'Title', 'cherry-testimonials' );
+		$columns['thumbnail']    = __( 'Avatar', 'cherry-testimonials' );
+		$columns['author_name']  = __( 'Author', 'cherry-testimonials' );
+		$columns['position']     = __( 'Position', 'cherry-testimonials' );
+		$columns['company_name'] = __( 'Company Name', 'cherry-testimonials' );
+		$columns['date']         = __( 'Date', 'cherry-testimonials' );
 
 		// Return the columns.
 		return $columns;
@@ -109,25 +109,30 @@ class Cherry_Testimonials_Admin {
 	 * @param  int    $post_id
 	 */
 	public function manage_testimonial_columns( $column, $post_id ) {
+		require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-template-callbacks.php' );
+
+		$callbacks = new Cherry_Testimonials_Template_Callbacks( array() );
 
 		switch( $column ) {
 
 			case 'author_name' :
-
-				$post_meta = get_post_meta( $post_id, CHERRY_TESTI_POSTMETA, true );
-
-				if ( !empty( $post_meta ) ) {
-					echo ( isset( $post_meta['name'] ) && !empty( $post_meta['name'] ) ) ? $post_meta['name'] : '&mdash;';
-				}
-
+				$name = $callbacks->get_name();
+				echo empty( $name ) ? '&mdash;' : $name;
 				break;
 
 			case 'thumbnail' :
+				$avatar = $callbacks->get_avatar();
+				echo empty( $avatar ) ? '&mdash;' : $avatar;
+				break;
 
-				$thumb = get_the_post_thumbnail( $post_id, array( 50, 50 ) );
+			case 'position' :
+				$position = $callbacks->get_position();
+				echo empty( $position ) ? '&mdash;' : $position;
+				break;
 
-				echo !empty( $thumb ) ? $thumb : '&mdash;';
-
+			case 'company_name' :
+				$company_name = $callbacks->get_company();
+				echo empty( $company_name ) ? '&mdash;' : $company_name;
 				break;
 
 			default :
