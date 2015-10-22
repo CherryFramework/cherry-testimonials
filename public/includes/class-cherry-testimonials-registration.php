@@ -6,7 +6,7 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
 /**
@@ -137,8 +137,9 @@ class Cherry_Testimonials_Registration {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
+		}
 
 		return self::$instance;
 	}

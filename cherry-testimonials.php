@@ -152,9 +152,9 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 
 				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
 				$Cherry_Plugin_Update -> init( array(
-						'version'			=> CHERRY_TESTI_VERSION,
-						'slug'				=> CHERRY_TESTI_SLUG,
-						'repository_name'	=> CHERRY_TESTI_SLUG
+						'version'         => CHERRY_TESTI_VERSION,
+						'slug'            => CHERRY_TESTI_SLUG,
+						'repository_name' => CHERRY_TESTI_SLUG,
 				));
 			}
 		}

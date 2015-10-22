@@ -6,7 +6,7 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
 class Cherry_Testimonials_Admin {
