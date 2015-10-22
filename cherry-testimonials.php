@@ -18,7 +18,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 // If class 'Cherry_Testimonials' not exists.
-if ( !class_exists( 'Cherry_Testimonials' ) ) {
+if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 
 	/**
 	 * Sets up and initializes the Cherry Testimonials plugin.
@@ -151,11 +151,11 @@ if ( !class_exists( 'Cherry_Testimonials' ) ) {
 				require_once( CHERRY_TESTI_DIR . 'admin/includes/class-cherry-update/class-cherry-plugin-update.php' );
 
 				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
-				$Cherry_Plugin_Update -> init( array(
+				$Cherry_Plugin_Update->init( array(
 						'version'         => CHERRY_TESTI_VERSION,
 						'slug'            => CHERRY_TESTI_SLUG,
 						'repository_name' => CHERRY_TESTI_SLUG,
-				));
+				) );
 			}
 		}
 
