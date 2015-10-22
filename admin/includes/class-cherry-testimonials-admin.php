@@ -90,12 +90,12 @@ class Cherry_Testimonials_Admin {
 		$columns['cb'] = $post_columns['cb'];
 
 		// Add custom columns and overwrite the 'title' column.
-		$columns['title']        = __( 'Title', 'cherry-testimonials' );
+		$columns['title']        = $post_columns['title'];
 		$columns['thumbnail']    = __( 'Avatar', 'cherry-testimonials' );
 		$columns['author_name']  = __( 'Author', 'cherry-testimonials' );
 		$columns['position']     = __( 'Position', 'cherry-testimonials' );
 		$columns['company_name'] = __( 'Company Name', 'cherry-testimonials' );
-		$columns['date']         = __( 'Date', 'cherry-testimonials' );
+		$columns['date']         = $post_columns['date'];
 
 		// Return the columns.
 		return $columns;
