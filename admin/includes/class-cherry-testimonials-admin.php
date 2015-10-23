@@ -116,7 +116,7 @@ class Cherry_Testimonials_Admin {
 	public function manage_testimonial_columns( $column, $post_id ) {
 		require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-template-callbacks.php' );
 
-		$callbacks = new Cherry_Testimonials_Template_Callbacks( array() );
+		$callbacks = new Cherry_Testimonials_Template_Callbacks( null );
 
 		switch ( $column ) {
 			case 'author_name':
