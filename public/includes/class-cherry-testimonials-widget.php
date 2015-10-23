@@ -56,7 +56,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * @since  1.0.0
 	 * @param  string $method Name of the method being called.
 	 * @param  array  $args   Array containing the parameters passed to the $name'ed method.
-	 * @return void
+	 * @return string
 	 */
 	public function __call( $method, $args ) {
 		return $this->data->$method( $args[0] );
@@ -199,7 +199,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * Removes the cache contents matching key and group.
 	 *
 	 * @since  1.0.0
-	 * @return bool
+	 * @return void
 	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( $this->get_widget_slug(), 'widget' );
@@ -311,7 +311,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	protected function get_order_options() {
 		return array(
 			'ASC'  => __( 'Ascending', 'cherry-testimonials' ),
-			'DESC' => __( 'Descending', 'cherry-testimonials' )
+			'DESC' => __( 'Descending', 'cherry-testimonials' ),
 		);
 	}
 
@@ -327,7 +327,6 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 			'full' => __( 'Full content', 'cherry-testimonials' ),
 		);
 	}
-
 }
 
 /**

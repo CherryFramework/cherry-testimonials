@@ -8,6 +8,12 @@
  * @link      http://www.cherryframework.com/
  * @copyright 2012 - 2015, Cherry Team
  */
+
+/**
+ * Class for Testimonials admin functionality.
+ *
+ * @since 1.0.0
+ */
 class Cherry_Testimonials_Admin {
 
 	/**
@@ -112,7 +118,7 @@ class Cherry_Testimonials_Admin {
 
 		$callbacks = new Cherry_Testimonials_Template_Callbacks( array() );
 
-		switch( $column ) {
+		switch ( $column ) {
 			case 'author_name':
 				$name = $callbacks->get_name();
 				echo empty( $name ) ? '&mdash;' : $name;

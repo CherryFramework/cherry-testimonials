@@ -192,7 +192,7 @@ class Cherry_Testimonials_Data {
 		wp_reset_query();
 		wp_reset_postdata();
 
-		if ( $args['echo'] != true ) {
+		if ( true != $args['echo'] ) {
 			return $output;
 		}
 
@@ -253,7 +253,7 @@ class Cherry_Testimonials_Data {
 						'taxonomy' => CHERRY_TESTI_NAME . '_category',
 						'field'    => 'slug',
 						'terms'    => $category,
-					)
+					),
 				);
 			}
 		} else {
@@ -406,8 +406,8 @@ class Cherry_Testimonials_Data {
 	 * Get testimonials items.
 	 *
 	 * @since  1.0.0
-	 * @param  array  $query WP_query object.
-	 * @param  array  $args  The array of arguments.
+	 * @param  array $query WP_query object.
+	 * @param  array $args  The array of arguments.
 	 * @return string
 	 */
 	public function get_testimonials_loop( $query, $args ) {
@@ -562,7 +562,7 @@ class Cherry_Testimonials_Data {
 	 * Get CSS class name for shortcode by template name.
 	 *
 	 * @since  1.1.0
-	 * @param  string      $template Template name.
+	 * @param  string $template Template name.
 	 * @return string|bool
 	 */
 	public function get_template_class( $template ) {
