@@ -32,6 +32,11 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 */
 	private $data = null;
 
+	/**
+	 * PHP5 constructor.
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		parent::__construct(
 			$this->get_widget_slug(),
