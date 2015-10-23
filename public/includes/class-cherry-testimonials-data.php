@@ -6,7 +6,7 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
 /**
@@ -125,7 +125,7 @@ class Cherry_Testimonials_Data {
 		global $wp_query;
 
 		$this->temp_query = $wp_query;
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $query;
 
 		$all_posts = '';
@@ -144,7 +144,7 @@ class Cherry_Testimonials_Data {
 
 		$css_class = '';
 
-		if ( !empty( $args['wrap_class'] ) ) {
+		if ( ! empty( $args['wrap_class'] ) ) {
 			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
 		}
 
@@ -152,14 +152,14 @@ class Cherry_Testimonials_Data {
 			$css_class .= $this->get_template_class( $args['template'] ) . ' ';
 		}
 
-		if ( !empty( $args['custom_class'] ) ) {
+		if ( ! empty( $args['custom_class'] ) ) {
 			$css_class .= esc_attr( $args['custom_class'] );
 		}
 
 		// Open wrapper.
 		$output .= sprintf( '<div class="%s">', trim( $css_class ) );
 
-		if ( !empty( $args['title'] ) ) {
+		if ( ! empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
 		}
 
@@ -176,7 +176,7 @@ class Cherry_Testimonials_Data {
 			$output .= get_the_posts_pagination();
 		}
 
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $this->temp_query;
 
 		/**
@@ -192,7 +192,7 @@ class Cherry_Testimonials_Data {
 		wp_reset_query();
 		wp_reset_postdata();
 
-		if ( $args['echo'] != true ) {
+		if ( true != $args['echo'] ) {
 			return $output;
 		}
 
@@ -253,7 +253,7 @@ class Cherry_Testimonials_Data {
 						'taxonomy' => CHERRY_TESTI_NAME . '_category',
 						'field'    => 'slug',
 						'terms'    => $category,
-					)
+					),
 				);
 			}
 		} else {
@@ -262,10 +262,10 @@ class Cherry_Testimonials_Data {
 
 		if ( isset( $args['pager'] ) && ( 'true' == $args['pager'] ) ) :
 
-			if ( get_query_var('paged') ) {
-				$this->query_args['paged'] = get_query_var('paged');
-			} elseif ( get_query_var('page') ) {
-				$this->query_args['paged'] = get_query_var('page');
+			if ( get_query_var( 'paged' ) ) {
+				$this->query_args['paged'] = get_query_var( 'paged' );
+			} elseif ( get_query_var( 'page' ) ) {
+				$this->query_args['paged'] = get_query_var( 'page' );
 			} else {
 				$this->query_args['paged'] = 1;
 			}
@@ -369,8 +369,7 @@ class Cherry_Testimonials_Data {
 	 * Callback to replace macros with data.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param array $matches Found macros
+	 * @param array $matches Founded macros.
 	 */
 	public function replace_callback( $matches ) {
 
@@ -407,8 +406,8 @@ class Cherry_Testimonials_Data {
 	 * Get testimonials items.
 	 *
 	 * @since  1.0.0
-	 * @param  array         $query      WP_query object.
-	 * @param  array         $args       The array of arguments.
+	 * @param  array $query WP_query object.
+	 * @param  array $args  The array of arguments.
 	 * @return string
 	 */
 	public function get_testimonials_loop( $query, $args ) {
@@ -527,6 +526,14 @@ class Cherry_Testimonials_Data {
 		return $content;
 	}
 
+	/**
+	 * Retrieve a *.tmpl file content.
+	 *
+	 * @since  1.0.0
+	 * @param  string $template  File name.
+	 * @param  string $shortcode Shortcode name.
+	 * @return string
+	 */
 	public function get_template_by_name( $template, $shortcode ) {
 		$file       = '';
 		$default    = CHERRY_TESTI_DIR . 'templates/shortcodes/' . $shortcode . '/default.tmpl';
@@ -552,11 +559,11 @@ class Cherry_Testimonials_Data {
 	}
 
 	/**
-	 * Get CSS class name for shortcode by template name
+	 * Get CSS class name for shortcode by template name.
 	 *
 	 * @since  1.1.0
-	 * @param  string $template template name
-	 * @return string|bool false
+	 * @param  string $template Template name.
+	 * @return string|bool
 	 */
 	public function get_template_class( $template ) {
 

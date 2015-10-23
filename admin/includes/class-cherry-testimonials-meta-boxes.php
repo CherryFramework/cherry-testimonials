@@ -6,9 +6,14 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
+/**
+ * Class for Testimonials custom post meta boxes.
+ *
+ * @since 1.0.0
+ */
 class Cherry_Testimonials_Meta_Boxes {
 
 	/**
@@ -82,19 +87,27 @@ class Cherry_Testimonials_Meta_Boxes {
 					'std'  => '',
 					'type' => 'text',
 				),
-				// array(
-				// 	'name'   => __( 'Foo', 'cherry-testimonials' ),
-				// 	'desc'   => __( 'foo description', 'cherry-testimonials' ),
-				// 	'id'     => 'foo',
-				// 	'std'    => '',
-				// 	'type'   => 'select',
-				// 	'option' => array(
-				// 		'option1' => __( 'Option 1' ),
-				// 		'option2' => __( 'Option 2' ),
-				// 		'option3' => __( 'Option 3' ),
-				// 	)
-				// ),
-			)
+				/**
+				 * Example control definition.
+				 *
+				 * This is a example for definition a select control.
+				 *
+				 * @since 1.1.0
+				 *
+				 * array(
+				 *	'name'   => __( 'Foo', 'cherry-testimonials' ),
+				 *	'desc'   => __( 'foo description', 'cherry-testimonials' ),
+				 *	'id'     => 'foo',
+				 *	'std'    => '',
+				 *	'type'   => 'select',
+				 *	'option' => array(
+				 *		'option1' => __( 'Option 1' ),
+				 *		'option2' => __( 'Option 2' ),
+				 *		'option3' => __( 'Option 3' ),
+				 *	)
+				 *),
+				 */
+			),
 		) );
 
 		/**
@@ -118,7 +131,7 @@ class Cherry_Testimonials_Meta_Boxes {
 	 *
 	 * @since 1.0.0
 	 * @param object $post    Current post object.
-	 * @param array  $metabox
+	 * @param array  $metabox Metabox data.
 	 */
 	public function callback_metabox( $post, $metabox ) {
 
@@ -205,8 +218,8 @@ class Cherry_Testimonials_Meta_Boxes {
 	 * Save the meta when the post is saved.
 	 *
 	 * @since 1.0.0
-	 * @param int    $post_id
-	 * @param object $post
+	 * @param int    $post_id The post ID.
+	 * @param object $post    The post object.
 	 */
 	public function save_post( $post_id, $post ) {
 
@@ -280,18 +293,11 @@ class Cherry_Testimonials_Meta_Boxes {
 		// Get current post meta data.
 		$meta_value = get_post_meta( $post_id, CHERRY_TESTI_POSTMETA, true );
 
-		// If a new meta value was added and there was no previous value, add it.
 		if ( $new_meta_value && '' == $meta_value ) {
 			add_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $new_meta_value, true );
-		}
-
-		// If the new meta value does not match the old value, update it.
-		elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
+		} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
 			update_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $new_meta_value );
-		}
-
-		// If there is no new meta value but an old value exists, delete it.
-		elseif ( '' == $new_meta_value && $meta_value ) {
+		} elseif ( '' == $new_meta_value && $meta_value ) {
 			delete_post_meta( $post_id, CHERRY_TESTI_POSTMETA, $meta_value );
 		}
 	}
