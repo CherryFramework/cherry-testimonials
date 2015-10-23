@@ -85,12 +85,18 @@ class Cherry_Testimonials_Page_Template {
 		);
 	}
 
+	/**
+	 * Set posts per archive testimonials page.
+	 *
+	 * @since 1.0.0
+	 * @param object $query Main query.
+	 */
 	public function set_posts_per_archive_page( $query ) {
 		if ( ! is_admin()
 			&& $query->is_main_query()
 			&& (
 				$query->is_post_type_archive( CHERRY_TESTI_NAME )
-				|| ( is_tax() && !empty( $query->queried_object->taxonomy ) && ( CHERRY_TESTI_NAME . '_category' === $query->queried_object->taxonomy ) )
+				|| ( is_tax() && ! empty( $query->queried_object->taxonomy ) && ( CHERRY_TESTI_NAME . '_category' === $query->queried_object->taxonomy ) )
 				)
 			) {
 
@@ -119,7 +125,7 @@ class Cherry_Testimonials_Page_Template {
 		}
 
 		// Since we've updated the cache, we need to delete the old cache.
-		wp_cache_delete( $cache_key , 'themes');
+		wp_cache_delete( $cache_key , 'themes' );
 
 		// Now add our template to the list of templates by merging our templates
 		// with the existing templates array from the cache.
@@ -144,7 +150,7 @@ class Cherry_Testimonials_Page_Template {
 			trailingslashit( get_stylesheet_directory() ),
 			trailingslashit( get_template_directory() ) . 'templates/',
 			trailingslashit( get_template_directory() ),
-			trailingslashit( CHERRY_TESTI_DIR ) . 'templates/'
+			trailingslashit( CHERRY_TESTI_DIR ) . 'templates/',
 		);
 
 		// Check if we need archive template to include.
@@ -157,7 +163,6 @@ class Cherry_Testimonials_Page_Template {
 					return $dir . $archive_template;
 				}
 			}
-
 		}
 
 		if ( ! is_page( $post ) ) {
@@ -166,7 +171,7 @@ class Cherry_Testimonials_Page_Template {
 
 		$page_template_meta = get_post_meta( $post->ID, '_wp_page_template', true );
 
-		if ( !isset( $this->templates[ $page_template_meta ] ) ) {
+		if ( ! isset( $this->templates[ $page_template_meta ] ) ) {
 			return $template;
 		}
 
@@ -196,7 +201,7 @@ class Cherry_Testimonials_Page_Template {
 			trailingslashit( get_stylesheet_directory() ),
 			trailingslashit( get_template_directory() ) . 'templates/',
 			trailingslashit( get_template_directory() ),
-			trailingslashit( CHERRY_TESTI_DIR ) . 'templates/'
+			trailingslashit( CHERRY_TESTI_DIR ) . 'templates/',
 		);
 
 		foreach ( $check_dirs as $dir ) {

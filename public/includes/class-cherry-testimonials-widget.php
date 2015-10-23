@@ -32,17 +32,13 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 */
 	private $data = null;
 
-	/*--------------------------------------------------*/
-	/* Constructor
-	/*--------------------------------------------------*/
 	public function __construct() {
-
 		parent::__construct(
 			$this->get_widget_slug(),
 			__( 'Cherry Testimonials', 'cherry-testimonials' ),
 			array(
 				'classname'   => $this->get_widget_slug(),
-				'description' => __( "Your site's most recent Testimonials.", 'cherry-testimonials' )
+				'description' => __( "Your site's most recent Testimonials.", 'cherry-testimonials' ),
 			)
 		);
 
@@ -70,36 +66,35 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * Return the widget slug.
 	 *
 	 * @since  1.0.0
-	 * @return Plugin slug variable.
+	 * @return string
 	 */
 	public function get_widget_slug() {
 		return $this->widget_slug;
 	}
 
-	/*--------------------------------------------------*/
-	/* Widget API Functions
-	/*--------------------------------------------------*/
-
 	/**
 	 * Outputs the content of the widget.
 	 *
 	 * @since 1.0.0
-	 * @param array args     The array of form elements.
-	 * @param array instance The current instance of the widget.
+	 * @param array $args     The array of form elements.
+	 * @param array $instance The current instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
 
 		// Check if there is a cached output.
 		$cache = wp_cache_get( $this->get_widget_slug(), 'widget' );
 
-		if ( !is_array( $cache ) )
+		if ( ! is_array( $cache ) ) {
 			$cache = array();
+		}
 
-		if ( !isset( $args['widget_id'] ) )
+		if ( ! isset( $args['widget_id'] ) ) {
 			$args['widget_id'] = $this->widget_slug;
+		}
 
-		if ( isset( $cache[ $args['widget_id'] ] ) )
+		if ( isset( $cache[ $args['widget_id'] ] ) ) {
 			return print $cache[ $args['widget_id'] ];
+		}
 
 		extract( $args, EXTR_SKIP );
 
@@ -186,7 +181,6 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		$widget_string .= $this->data->the_testimonials( $atts );
 		$widget_string .= $after_widget;
 
-
 		$cache[ $args['widget_id'] ] = $widget_string;
 
 		wp_cache_set( $this->get_widget_slug(), $cache, 'widget' );
@@ -201,6 +195,12 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		do_action( $this->widget_slug . '_after' );
 	}
 
+	/**
+	 * Removes the cache contents matching key and group.
+	 *
+	 * @since  1.0.0
+	 * @return bool
+	 */
 	public function flush_widget_cache() {
 		wp_cache_delete( $this->get_widget_slug(), 'widget' );
 	}
@@ -209,8 +209,8 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * Processes the widget's options to be saved.
 	 *
 	 * @since 1.0.0
-	 * @param array new_instance The new instance of values to be generated via the update.
-	 * @param array old_instance The previous instance of values before the update.
+	 * @param array $new_instance The new instance of values to be generated via the update.
+	 * @param array $old_instance The previous instance of values before the update.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -243,7 +243,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 	 * Generates the administration form for the widget.
 	 *
 	 * @since 1.0.0
-	 * @param array instance The array of keys and values for the widget.
+	 * @param array $instance The array of keys and values for the widget.
 	 */
 	public function form( $instance ) {
 		/**
@@ -284,10 +284,6 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		// Display the admin form.
 		include( apply_filters( 'cherry_testimonials_widget_form_file', trailingslashit( CHERRY_TESTI_DIR ) . 'admin/views/widget.php' ) );
 	}
-
-	/*--------------------------------------------------*/
-	/* Public/Protected Functions
-	/*--------------------------------------------------*/
 
 	/**
 	 * Get an array of the available orderby options.
@@ -334,6 +330,11 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 
 }
 
+/**
+ * Registers a widget.
+ *
+ * @since 1.0.0
+ */
 function cherry_testimonials_register_widget() {
 	register_widget( 'Cherry_Testimonials_Widget' );
 }

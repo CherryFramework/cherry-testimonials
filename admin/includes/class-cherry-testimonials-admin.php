@@ -8,7 +8,6 @@
  * @link      http://www.cherryframework.com/
  * @copyright 2012 - 2015, Cherry Team
  */
-
 class Cherry_Testimonials_Admin {
 
 	/**
@@ -27,14 +26,14 @@ class Cherry_Testimonials_Admin {
 	 */
 	public function __construct() {
 		// Load post meta boxes on the post editing screen.
-		add_action( 'load-post.php',     array( $this, 'load_post_meta_boxes' ) );
+		add_action( 'load-post.php', array( $this, 'load_post_meta_boxes' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_meta_boxes' ) );
 
 		// Only run our customization on the 'edit.php' page in the admin.
 		add_action( 'load-edit.php', array( $this, 'load_edit' ) );
 
 		// Modify the columns on the "Testimonials" screen.
-		add_filter( 'manage_edit-testimonial_columns',        array( $this, 'edit_testimonial_columns'   ) );
+		add_filter( 'manage_edit-testimonial_columns', array( $this, 'edit_testimonial_columns' ) );
 		add_action( 'manage_testimonial_posts_custom_column', array( $this, 'manage_testimonial_columns' ), 10, 2 );
 	}
 
@@ -69,8 +68,8 @@ class Cherry_Testimonials_Admin {
 	 *
 	 * @since 1.0.0
 	 */
-	public function print_styles() { ?>
-		<style type="text/css">
+	public function print_styles() {
+		?><style type="text/css">
 		.edit-php .wp-list-table td.thumbnail.column-thumbnail,
 		.edit-php .wp-list-table th.manage-column.column-thumbnail {
 			text-align: center;
@@ -82,7 +81,7 @@ class Cherry_Testimonials_Admin {
 	 * Filters the columns on the "Testimonials" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  array $post_columns
+	 * @param  array $post_columns An array of column name => label.
 	 * @return array
 	 */
 	public function edit_testimonial_columns( $post_columns ) {
@@ -105,8 +104,8 @@ class Cherry_Testimonials_Admin {
 	 * Add output for custom columns on the "menu items" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  string $column
-	 * @param  int    $post_id
+	 * @param  string $column  The name of the column to display.
+	 * @param  int    $post_id The ID of the current post.
 	 */
 	public function manage_testimonial_columns( $column, $post_id ) {
 		require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-template-callbacks.php' );
@@ -114,23 +113,22 @@ class Cherry_Testimonials_Admin {
 		$callbacks = new Cherry_Testimonials_Template_Callbacks( array() );
 
 		switch( $column ) {
-
-			case 'author_name' :
+			case 'author_name':
 				$name = $callbacks->get_name();
 				echo empty( $name ) ? '&mdash;' : $name;
 				break;
 
-			case 'thumbnail' :
+			case 'thumbnail':
 				$avatar = $callbacks->get_avatar();
 				echo empty( $avatar ) ? '&mdash;' : $avatar;
 				break;
 
-			case 'position' :
+			case 'position':
 				$position = $callbacks->get_position();
 				echo empty( $position ) ? '&mdash;' : $position;
 				break;
 
-			case 'company_name' :
+			case 'company_name':
 				$company_name = $callbacks->get_company();
 				echo empty( $company_name ) ? '&mdash;' : $company_name;
 				break;

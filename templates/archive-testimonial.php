@@ -17,4 +17,4 @@ $args = array(
 	'custom_class' => 'testimonials-page testimonials-page_archive',
 );
 $data = new Cherry_Testimonials_Data;
-$data->the_testimonials( $args ); ?>
+$data->the_testimonials( $args );

@@ -10,10 +10,15 @@
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
+ *
+ * @package  Cherry Testimonials
+ * @category Core
+ * @author   Cherry Team
+ * @license  GPL-3.0+
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -49,21 +54,21 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 			$this->includes();
 
 			// Internationalize the text strings used.
-			add_action( 'plugins_loaded', array( $this, 'lang' ),  1 );
+			add_action( 'plugins_loaded', array( $this, 'lang' ), 1 );
 
 			// Load the admin files.
 			add_action( 'plugins_loaded', array( $this, 'admin' ), 2 );
 
 			// Load public-facing stylesheet.
-			add_action( 'wp_enqueue_scripts',         array( $this, 'enqueue_styles' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_filter( 'cherry_compiler_static_css', array( $this, 'add_style_to_compiler' ) );
 
 			// Adds options.
-			add_filter( 'cherry_layouts_options_list',   array( $this, 'add_cherry_options' ), 11 );
-			add_filter( 'cherry_get_single_post_layout', array( $this, 'get_single_option' ),  11, 2 );
+			add_filter( 'cherry_layouts_options_list', array( $this, 'add_cherry_options' ), 11 );
+			add_filter( 'cherry_get_single_post_layout', array( $this, 'get_single_option' ), 11, 2 );
 
 			// Register activation and deactivation hook.
-			register_activation_hook( __FILE__, array( $this, 'activation'     ) );
+			register_activation_hook( __FILE__, array( $this, 'activation' ) );
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 		}
 
@@ -123,7 +128,7 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 		 * @since 1.0.0
 		 */
 		function includes() {
-			require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-registration.php'  );
+			require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-registration.php' );
 			require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-page-template.php' );
 			require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-data.php' );
 			require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-shortcode.php' );
@@ -208,7 +213,7 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 		 * Adds a option in `Grid -> Layouts` subsection.
 		 *
 		 * @since 1.0.0
-		 * @param array $sections
+		 * @param array $layouts_options Set of layout options.
 		 */
 		public function add_cherry_options( $layouts_options ) {
 			$layouts_options['single-testi-layout'] = array(
@@ -245,7 +250,7 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 						'label'   => __( 'No sidebar', 'cherry-testimonials' ),
 						'img_src' => get_template_directory_uri() . '/lib/admin/assets/images/svg/page-layout-fullwidth.svg',
 					),
-				)
+				),
 			);
 
 			return $layouts_options;
@@ -295,8 +300,9 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
+			}
 
 			return self::$instance;
 		}

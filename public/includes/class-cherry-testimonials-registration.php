@@ -75,7 +75,7 @@ class Cherry_Testimonials_Registration {
 			'rewrite'         => array(
 				'slug'       => 'testimonial-view',
 				'with_front' => false,
-				'feeds'      => true
+				'feeds'      => true,
 			),
 			'query_var'       => true,
 			'menu_position'   => null,

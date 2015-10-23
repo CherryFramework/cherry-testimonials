@@ -35,6 +35,12 @@ class Cherry_Testimonials_Template_Callbacks {
 	 */
 	public $post_meta = null;
 
+	/**
+	 * Class constructor.
+	 *
+	 * @since 1.1.0
+	 * @param array $atts Set of attributes.
+	 */
 	public function __construct( $atts ) {
 		$this->atts = $atts;
 	}
@@ -131,7 +137,7 @@ class Cherry_Testimonials_Template_Callbacks {
 
 		$post_meta = $this->get_meta();
 		$name      = ( $post_meta && ! empty( $post_meta['name'] ) ) ? $post_meta['name'] : get_the_title( $post->ID );
-		$url       = ( $post_meta && ! empty( $post_meta['url']  ) ) ? $post_meta['url'] : '';
+		$url       = ( $post_meta && ! empty( $post_meta['url'] ) ) ? $post_meta['url'] : '';
 		$author    = '<footer><cite class="author" title="' . esc_attr( $name ) . '">';
 
 		if ( ! empty( $url ) ) {
@@ -254,5 +260,4 @@ class Cherry_Testimonials_Template_Callbacks {
 			$this->atts
 		);
 	}
-
 }

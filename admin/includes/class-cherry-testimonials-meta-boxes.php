@@ -8,7 +8,6 @@
  * @link      http://www.cherryframework.com/
  * @copyright 2012 - 2015, Cherry Team
  */
-
 class Cherry_Testimonials_Meta_Boxes {
 
 	/**
@@ -82,19 +81,21 @@ class Cherry_Testimonials_Meta_Boxes {
 					'std'  => '',
 					'type' => 'text',
 				),
-				// array(
-				// 	'name'   => __( 'Foo', 'cherry-testimonials' ),
-				// 	'desc'   => __( 'foo description', 'cherry-testimonials' ),
-				// 	'id'     => 'foo',
-				// 	'std'    => '',
-				// 	'type'   => 'select',
-				// 	'option' => array(
-				// 		'option1' => __( 'Option 1' ),
-				// 		'option2' => __( 'Option 2' ),
-				// 		'option3' => __( 'Option 3' ),
-				// 	)
-				// ),
-			)
+				/**
+				 * array(
+				 *	'name'   => __( 'Foo', 'cherry-testimonials' ),
+				 *	'desc'   => __( 'foo description', 'cherry-testimonials' ),
+				 *	'id'     => 'foo',
+				 *	'std'    => '',
+				 *	'type'   => 'select',
+				 *	'option' => array(
+				 *		'option1' => __( 'Option 1' ),
+				 *		'option2' => __( 'Option 2' ),
+				 *		'option3' => __( 'Option 3' ),
+				 *	)
+				 *),
+				 */
+			),
 		) );
 
 		/**
@@ -118,7 +119,7 @@ class Cherry_Testimonials_Meta_Boxes {
 	 *
 	 * @since 1.0.0
 	 * @param object $post    Current post object.
-	 * @param array  $metabox
+	 * @param array  $metabox Metabox data.
 	 */
 	public function callback_metabox( $post, $metabox ) {
 
@@ -205,8 +206,8 @@ class Cherry_Testimonials_Meta_Boxes {
 	 * Save the meta when the post is saved.
 	 *
 	 * @since 1.0.0
-	 * @param int    $post_id
-	 * @param object $post
+	 * @param int    $post_id The post ID.
+	 * @param object $post    The post object.
 	 */
 	public function save_post( $post_id, $post ) {
 
