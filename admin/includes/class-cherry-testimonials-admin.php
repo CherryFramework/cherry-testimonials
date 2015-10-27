@@ -94,7 +94,7 @@ class Cherry_Testimonials_Admin {
 
 		unset(
 			$post_columns['author'],
-			$post_columns['taxonomy-' . CHERRY_TESTI_NAME . '_category'],
+			$post_columns[ 'taxonomy-' . CHERRY_TESTI_NAME . '_category' ],
 			$post_columns['date']
 		);
 
