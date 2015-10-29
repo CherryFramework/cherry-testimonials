@@ -420,8 +420,8 @@ class Cherry_Testimonials_Data {
 		 * Filters template for testimonials item.
 		 *
 		 * @since 1.0.0
-		 * @param string.
-		 * @param array   Arguments.
+		 * @param string $template.
+		 * @param array  $args.
 		 */
 		$template = apply_filters( 'cherry_testimonials_item_template', $template, $args );
 
@@ -450,8 +450,7 @@ class Cherry_Testimonials_Data {
 				 * Filters testimonails item.
 				 *
 				 * @since 1.0.0
-				 * @param string.
-				 * @param array  A post meta.
+				 * @param string $tpl.
 				 */
 				$tpl = apply_filters( 'cherry_get_testimonails_loop', $tpl );
 
@@ -490,6 +489,13 @@ class Cherry_Testimonials_Data {
 			'company'  => array( $callbacks, 'get_company' ),
 		);
 
+		/**
+		 * Filters item data.
+		 *
+		 * @since 1.0.2
+		 * @param array $data Item data.
+		 * @param array $atts Attributes.
+		 */
 		$this->post_data = apply_filters( 'cherry_testimonials_data_callbacks', $data, $atts );
 
 		return $callbacks;
@@ -541,6 +547,12 @@ class Cherry_Testimonials_Data {
 		$upload_dir = trailingslashit( $upload_dir['basedir'] );
 		$subdir     = 'templates/shortcodes/' . $shortcode . '/' . $template;
 
+		/**
+		 * Filters a default fallback-template.
+		 *
+		 * @since 1.0.0
+		 * @param string $content.
+		 */
 		$content = apply_filters( 'cherry_testimonials_fallback_template', '%%avatar%%<blockquote>%%content%% %%author%%</blockquote>' );
 
 		if ( file_exists( $upload_dir . $subdir ) ) {
@@ -571,7 +583,14 @@ class Cherry_Testimonials_Data {
 			return false;
 		}
 
-		// Use the same filter for all cherry-related shortcodes
+		/**
+		 * Filters a CSS-class prefix.
+		 *
+		 * Use the same filter for all cherry-related shortcodes.
+		 *
+		 * @since 1.1.0
+		 * @param string $prefix.
+		 */
 		$prefix = apply_filters( 'cherry_shortcodes_template_class_prefix', 'template' );
 		$class  = sprintf( '%s-%s', esc_attr( $prefix ), esc_attr( str_replace( '.tmpl', '', $template ) ) );
 
