@@ -84,26 +84,29 @@ class Cherry_Testimonials_Admin {
 	<?php }
 
 	/**
-	 * Filters the columns on the "Testimonials" screen.
+	 * Filters the columns on the `Testimonials` screen.
 	 *
 	 * @since  1.0.0
 	 * @param  array $post_columns An array of column name => label.
 	 * @return array
 	 */
 	public function edit_testimonial_columns( $post_columns ) {
-		// Adds the checkbox column.
-		$columns['cb'] = $post_columns['cb'];
 
-		// Add custom columns and overwrite the 'title' column.
-		$columns['title']        = $post_columns['title'];
-		$columns['thumbnail']    = __( 'Avatar', 'cherry-testimonials' );
-		$columns['author_name']  = __( 'Author', 'cherry-testimonials' );
-		$columns['position']     = __( 'Position', 'cherry-testimonials' );
-		$columns['company_name'] = __( 'Company Name', 'cherry-testimonials' );
-		$columns['date']         = $post_columns['date'];
+		unset(
+			$post_columns['author'],
+			$post_columns[ 'taxonomy-' . CHERRY_TESTI_NAME . '_category' ],
+			$post_columns['date']
+		);
+
+		// Add custom columns and overwrite the 'date' column.
+		$post_columns['thumbnail']    = __( 'Avatar', 'cherry-testimonials' );
+		$post_columns['author_name']  = __( 'Author', 'cherry-testimonials' );
+		$post_columns['position']     = __( 'Position', 'cherry-testimonials' );
+		$post_columns['company_name'] = __( 'Company Name', 'cherry-testimonials' );
+		$post_columns['date']         = __( 'Date', 'cherry-testimonials' );
 
 		// Return the columns.
-		return $columns;
+		return $post_columns;
 	}
 
 	/**
