@@ -21,4 +21,4 @@ while ( have_posts() ) : the_post();
 
 	do_action( 'cherry_entry_after' );
 
-endwhile; ?>
+endwhile;

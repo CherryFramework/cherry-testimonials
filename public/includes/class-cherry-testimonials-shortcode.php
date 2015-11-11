@@ -6,7 +6,7 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
 /**
@@ -83,8 +83,8 @@ class Cherry_Testimonials_Shortcode {
 	 * Filter to modify original shortcodes data and add [$this->name] shortcode.
 	 *
 	 * @since  1.0.0
-	 * @param  array   $shortcodes Original plugin shortcodes.
-	 * @return array               Modified array.
+	 * @param  array $shortcodes Original plugin shortcodes.
+	 * @return array             Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
 		$terms_list = array();
@@ -99,7 +99,7 @@ class Cherry_Testimonials_Shortcode {
 
 		$shortcodes[ self::$name ] = array(
 			'name'  => __( 'Testimonials', 'cherry-testimonials' ), // Shortcode name.
-			'desc'  => 'This is a Testimonials Shortcode',
+			'desc'  => __( 'This is a Testimonials Shortcode', 'cherry-testimonials' ),
 			'type'  => 'single', // Can be 'wrap' or 'single'.
 			'group' => 'content', // Can be 'content', 'box', 'media' or 'other'.
 			'atts'  => array( // List of shortcode params (attributes).
@@ -167,6 +167,12 @@ class Cherry_Testimonials_Shortcode {
 					'name'    => __( 'Display avatar?', 'cherry-testimonials' ),
 					'desc'    => __( 'Display avatar?', 'cherry-testimonials' ),
 				),
+				'clickable_url' => array(
+					'type'    => 'bool',
+					'default' => 'no',
+					'name'    => __( 'Clickable URL?', 'cherry-testimonials' ),
+					'desc'    => __( 'Make clickable URL', 'cherry-testimonials' ),
+				),
 				'size' => array(
 					'type'    => 'slider',
 					'min'     => 10,
@@ -211,7 +217,7 @@ class Cherry_Testimonials_Shortcode {
 				),
 			),
 			'icon'     => 'quote-left', // Custom icon (font-awesome).
-			'function' => array( $this, 'do_shortcode' ) // Name of shortcode function.
+			'function' => array( $this, 'do_shortcode' ), // Name of shortcode function.
 		);
 
 		return $shortcodes;
@@ -221,7 +227,7 @@ class Cherry_Testimonials_Shortcode {
 	 * Register a directory with *.tmpl files.
 	 *
 	 * @since 1.0.0
-	 * @param array $target_dirs
+	 * @param array $target_dirs Set of directories.
 	 */
 	public function add_target_dir( $target_dirs ) {
 		array_push( $target_dirs, CHERRY_TESTI_DIR );
@@ -249,6 +255,7 @@ class Cherry_Testimonials_Shortcode {
 			'id'             => 0,
 			'display_author' => true,
 			'display_avatar' => true,
+			'clickable_url'  => false,
 			'size'           => 50,
 			'content_type'   => 'full',
 			'content_length' => 55,
@@ -279,7 +286,7 @@ class Cherry_Testimonials_Shortcode {
 		}
 
 		// Fix booleans.
-		foreach ( array( 'display_author', 'display_avatar' ) as $k => $v ) :
+		foreach ( array( 'display_author', 'display_avatar', 'clickable_url' ) as $k => $v ) :
 
 			if ( isset( $atts[ $v ] ) && ( 'yes' == $atts[ $v ] ) ) {
 				$atts[ $v ] = true;
@@ -311,34 +318,52 @@ class Cherry_Testimonials_Shortcode {
 
 		$macros_buttons = array();
 
-		$macros_buttons['author'] = array(
-			'id'    => 'cherry_author',
-			'value' => __( "Author's name", 'cherry-testimonials' ),
-			'open'  => '%%AUTHOR%%',
-			'close' => '',
-		);
-		$macros_buttons['avatar'] = array(
-			'id'    => 'cherry_avatar',
-			'value' => __( "Author's avatar", 'cherry-testimonials' ),
-			'open'  => '%%AVATAR%%',
+		$macros_buttons['name'] = array(
+			'id'    => 'cherry_author_name',
+			'value' => __( 'Name', 'cherry-testimonials' ),
+			'open'  => '%%NAME%%',
 			'close' => '',
 		);
 		$macros_buttons['email'] = array(
 			'id'    => 'cherry_email',
-			'value' => __( "Author's email", 'cherry-testimonials' ),
+			'value' => __( 'Email', 'cherry-testimonials' ),
 			'open'  => '%%EMAIL%%',
 			'close' => '',
 		);
 		$macros_buttons['url'] = array(
 			'id'    => 'cherry_url',
-			'value' => __( "Author's URL", 'cherry-testimonials' ),
+			'value' => __( 'URL', 'cherry-testimonials' ),
 			'open'  => '%%URL%%',
+			'close' => '',
+		);
+		$macros_buttons['avatar'] = array(
+			'id'    => 'cherry_avatar',
+			'value' => __( 'Avatar', 'cherry-testimonials' ),
+			'open'  => '%%AVATAR%%',
+			'close' => '',
+		);
+		$macros_buttons['position'] = array(
+			'id'    => 'cherry_position',
+			'value' => __( 'Position', 'cherry-testimonials' ),
+			'open'  => '%%POSITION%%',
+			'close' => '',
+		);
+		$macros_buttons['company'] = array(
+			'id'    => 'cherry_company',
+			'value' => __( 'Company', 'cherry-testimonials' ),
+			'open'  => '%%COMPANY%%',
 			'close' => '',
 		);
 		$macros_buttons['content'] = array(
 			'id'    => 'cherry_content',
-			'value' => __( "Content", 'cherry-testimonials' ),
+			'value' => __( 'Content', 'cherry-testimonials' ),
 			'open'  => '%%CONTENT%%',
+			'close' => '',
+		);
+		$macros_buttons['author'] = array(
+			'id'    => 'cherry_author',
+			'value' => __( 'Name + URL (HTML-formatted)', 'cherry-testimonials' ),
+			'open'  => '%%AUTHOR%%',
 			'close' => '',
 		);
 
@@ -354,20 +379,38 @@ class Cherry_Testimonials_Shortcode {
 	public function extend_carousel_macros( $macros_buttons ) {
 		$macros_buttons['testi_name'] = array(
 			'id'    => 'testi_name',
-			'value' => __( "Author's name (Testimonials only)", 'cherry-testimonials' ),
-			'open'  => '%%AUTHOR%%',
+			'value' => __( 'Author Name (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTINAME%%',
 			'close' => '',
 		);
 		$macros_buttons['testi_email'] = array(
 			'id'    => 'testi_email',
-			'value' => __( "Author's email (Testimonials only)", 'cherry-testimonials' ),
-			'open'  => '%%EMAIL%%',
+			'value' => __( 'Email (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTIEMAIL%%',
 			'close' => '',
 		);
 		$macros_buttons['testi_url'] = array(
 			'id'    => 'testi_url',
-			'value' => __( "Author's URL (Testimonials only)", 'cherry-testimonials' ),
-			'open'  => '%%URL%%',
+			'value' => __( 'URL (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTIURL%%',
+			'close' => '',
+		);
+		$macros_buttons['testi_author'] = array(
+			'id'    => 'testi_author',
+			'value' => __( 'Name + URL (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTIAUTHOR%%',
+			'close' => '',
+		);
+		$macros_buttons['testi_position'] = array(
+			'id'    => 'testi_position',
+			'value' => __( 'Position (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTIPOSITION%%',
+			'close' => '',
+		);
+		$macros_buttons['testi_company'] = array(
+			'id'    => 'testi_company',
+			'value' => __( 'Company (Testimonials only)', 'cherry-testimonials' ),
+			'open'  => '%%TESTICOMPANY%%',
 			'close' => '',
 		);
 
@@ -378,18 +421,34 @@ class Cherry_Testimonials_Shortcode {
 	 * Add testimonials macros data to process it in carousel shortcode.
 	 *
 	 * @since 1.0.2
-	 * @param array $postdata Default data
-	 * @param int   $post_id  Processed post ID
-	 * @param array $atts     Shortcode attributes
+	 * @param array $postdata Default data.
+	 * @param int   $post_id  Processed post ID.
+	 * @param array $atts     Shortcode attributes.
 	 */
 	public function add_carousel_data( $postdata, $post_id, $atts ) {
 
 		require_once( CHERRY_TESTI_DIR . 'public/includes/class-cherry-testimonials-template-callbacks.php' );
 		$callbacks = new Cherry_Testimonials_Template_Callbacks( $atts );
 
-		$postdata['author']  = $callbacks->get_author();
-		$postdata['email']   = $callbacks->get_email();
-		$postdata['url']     = $callbacks->get_url();
+		$postdata['testiavatar']   = $callbacks->get_avatar();
+		$postdata['testicontent']  = $callbacks->get_content();
+		$postdata['testiauthor']   = $callbacks->get_author();
+		$postdata['testiemail']    = $callbacks->get_email();
+		$postdata['testiname']     = $callbacks->get_name();
+		$postdata['testiurl']      = $callbacks->get_url();
+		$postdata['testiposition'] = $callbacks->get_position();
+		$postdata['testicompany']  = $callbacks->get_company();
+
+		/**
+		 * Filters a fallback for old themes.
+		 *
+		 * @since 1.1.0
+		 */
+		if ( false === apply_filters( 'cherry_testimonials_remove_carousel_data_fallback', false ) ) {
+			$postdata['author'] = $callbacks->get_author();
+			$postdata['email']  = $callbacks->get_email();
+			$postdata['url']    = $callbacks->get_url();
+		}
 
 		return $postdata;
 	}
@@ -403,12 +462,12 @@ class Cherry_Testimonials_Shortcode {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
+		}
 
 		return self::$instance;
 	}
-
 }
 
 Cherry_Testimonials_Shortcode::get_instance();

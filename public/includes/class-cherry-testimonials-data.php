@@ -6,7 +6,7 @@
  * @author    Cherry Team
  * @license   GPL-2.0+
  * @link      http://www.cherryframework.com/
- * @copyright 2014 Cherry Team
+ * @copyright 2012 - 2015, Cherry Team
  */
 
 /**
@@ -85,6 +85,7 @@ class Cherry_Testimonials_Data {
 			'id'             => 0,
 			'display_author' => true,
 			'display_avatar' => true,
+			'clickable_url'  => false,
 			'size'           => 50,
 			'content_type'   => 'full',
 			'content_length' => 55,
@@ -124,7 +125,7 @@ class Cherry_Testimonials_Data {
 		global $wp_query;
 
 		$this->temp_query = $wp_query;
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $query;
 
 		$all_posts = '';
@@ -143,18 +144,22 @@ class Cherry_Testimonials_Data {
 
 		$css_class = '';
 
-		if ( !empty( $args['wrap_class'] ) ) {
+		if ( ! empty( $args['wrap_class'] ) ) {
 			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
 		}
 
-		if ( !empty( $args['custom_class'] ) ) {
+		if ( ! empty( $args['template'] ) ) {
+			$css_class .= $this->get_template_class( $args['template'] ) . ' ';
+		}
+
+		if ( ! empty( $args['custom_class'] ) ) {
 			$css_class .= esc_attr( $args['custom_class'] );
 		}
 
 		// Open wrapper.
 		$output .= sprintf( '<div class="%s">', trim( $css_class ) );
 
-		if ( !empty( $args['title'] ) ) {
+		if ( ! empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
 		}
 
@@ -171,7 +176,7 @@ class Cherry_Testimonials_Data {
 			$output .= get_the_posts_pagination();
 		}
 
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $this->temp_query;
 
 		/**
@@ -187,7 +192,7 @@ class Cherry_Testimonials_Data {
 		wp_reset_query();
 		wp_reset_postdata();
 
-		if ( $args['echo'] != true ) {
+		if ( true != $args['echo'] ) {
 			return $output;
 		}
 
@@ -247,8 +252,8 @@ class Cherry_Testimonials_Data {
 					array(
 						'taxonomy' => CHERRY_TESTI_NAME . '_category',
 						'field'    => 'slug',
-						'terms'    => $category
-					)
+						'terms'    => $category,
+					),
 				);
 			}
 		} else {
@@ -257,10 +262,10 @@ class Cherry_Testimonials_Data {
 
 		if ( isset( $args['pager'] ) && ( 'true' == $args['pager'] ) ) :
 
-			if ( get_query_var('paged') ) {
-				$this->query_args['paged'] = get_query_var('paged');
-			} elseif ( get_query_var('page') ) {
-				$this->query_args['paged'] = get_query_var('page');
+			if ( get_query_var( 'paged' ) ) {
+				$this->query_args['paged'] = get_query_var( 'paged' );
+			} elseif ( get_query_var( 'page' ) ) {
+				$this->query_args['paged'] = get_query_var( 'page' );
 			} else {
 				$this->query_args['paged'] = 1;
 			}
@@ -287,7 +292,7 @@ class Cherry_Testimonials_Data {
 		endif;
 
 		// Whitelist checks.
-		if ( !in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
+		if ( ! in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
 			$this->query_args['orderby'] = 'date';
 		}
 
@@ -311,23 +316,6 @@ class Cherry_Testimonials_Data {
 			return false;
 		}
 
-		foreach ( $query->posts as $i => $post ) {
-
-			// Get the post image.
-			$query->posts[ $i ]->image = $this->get_image( $post->ID, $args['size'] );
-
-			// Get the post meta data.
-			$post_meta = get_post_meta( $post->ID, CHERRY_TESTI_POSTMETA, true );
-
-			if ( !empty( $post_meta ) ) {
-
-				// Adds new property to the post object.
-				$query->posts[ $i ]->{CHERRY_TESTI_POSTMETA} = $post_meta;
-
-			}
-
-		}
-
 		return $query;
 	}
 
@@ -339,40 +327,40 @@ class Cherry_Testimonials_Data {
 	 * @param  string|array|int $size The image dimension.
 	 * @return string
 	 */
-	public function get_image( $id, $size ) {
+	public static function get_image( $id, $size ) {
 		$image = '';
 
-		if ( has_post_thumbnail( $id ) ) :
+		if ( has_post_thumbnail( $id ) ) {
 
 			// If not a string or an array, and not an integer, default to 150x9999.
-			if ( ( is_int( $size ) || ( 0 < intval( $size ) ) ) && !is_array( $size ) ) {
-
+			if ( ( is_int( $size ) || ( 0 < intval( $size ) ) ) && ! is_array( $size ) ) {
 				$size = array( intval( $size ), intval( $size ) );
-
-			} elseif ( !is_string( $size ) && !is_array( $size ) ) {
-
+			} elseif ( ! is_string( $size ) && ! is_array( $size ) ) {
 				$size = array( 50, 50 );
-
 			}
 
 			$image = get_the_post_thumbnail( intval( $id ), $size, array( 'class' => 'avatar' ) );
 
-		else :
+			return $image;
+		}
 
-			$post_meta = get_post_meta( $id, CHERRY_TESTI_POSTMETA, true );
+		$post_meta = get_post_meta( $id, CHERRY_TESTI_POSTMETA, true );
 
-			if ( !empty( $post_meta ) && is_array( $post_meta ) && isset( $post_meta['email'] ) ) {
+		if ( empty( $post_meta ) ) {
+			return;
+		}
 
-				$email = $post_meta['email'];
+		if ( empty( $post_meta['email'] ) ) {
+			return;
+		}
 
-				if ( !empty( $email ) && is_email( $email ) ) {
+		$email = $post_meta['email'];
 
-					$image = get_avatar( $email, $size );
+		if ( ! is_email( $email ) ) {
+			return;
+		}
 
-				}
-			}
-
-		endif;
+		$image = get_avatar( $email, $size );
 
 		return $image;
 	}
@@ -381,8 +369,7 @@ class Cherry_Testimonials_Data {
 	 * Callback to replace macros with data.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param array $matches Found macros
+	 * @param array $matches Founded macros.
 	 */
 	public function replace_callback( $matches ) {
 
@@ -419,8 +406,8 @@ class Cherry_Testimonials_Data {
 	 * Get testimonials items.
 	 *
 	 * @since  1.0.0
-	 * @param  array         $query      WP_query object.
-	 * @param  array         $args       The array of arguments.
+	 * @param  array $query WP_query object.
+	 * @param  array $args  The array of arguments.
 	 * @return string
 	 */
 	public function get_testimonials_loop( $query, $args ) {
@@ -433,8 +420,8 @@ class Cherry_Testimonials_Data {
 		 * Filters template for testimonials item.
 		 *
 		 * @since 1.0.0
-		 * @param string.
-		 * @param array   Arguments.
+		 * @param string $template.
+		 * @param array  $args.
 		 */
 		$template = apply_filters( 'cherry_testimonials_item_template', $template, $args );
 
@@ -445,8 +432,8 @@ class Cherry_Testimonials_Data {
 			return false;
 		}
 
-		$macros = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
-		$this->setup_template_data( $args );
+		$macros    = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
+		$callbacks = $this->setup_template_data( $args );
 
 		foreach ( $query->posts as $post ) {
 
@@ -463,8 +450,7 @@ class Cherry_Testimonials_Data {
 				 * Filters testimonails item.
 				 *
 				 * @since 1.0.0
-				 * @param string.
-				 * @param array  A post meta.
+				 * @param string $tpl.
 				 */
 				$tpl = apply_filters( 'cherry_get_testimonails_loop', $tpl );
 
@@ -472,6 +458,7 @@ class Cherry_Testimonials_Data {
 
 			$output .= '</div>';
 
+			$callbacks->clear_data();
 		}
 
 		// Restore the global $post variable.
@@ -492,14 +479,26 @@ class Cherry_Testimonials_Data {
 		$callbacks = new Cherry_Testimonials_Template_Callbacks( $atts );
 
 		$data = array(
-			'avatar'  => array( $callbacks, 'get_avatar' ),
-			'content' => array( $callbacks, 'get_content' ),
-			'author'  => array( $callbacks, 'get_author' ),
-			'email'   => array( $callbacks, 'get_email' ),
-			'url'     => array( $callbacks, 'get_url' ),
+			'avatar'   => array( $callbacks, 'get_avatar' ),
+			'content'  => array( $callbacks, 'get_content' ),
+			'author'   => array( $callbacks, 'get_author' ),
+			'email'    => array( $callbacks, 'get_email' ),
+			'name'     => array( $callbacks, 'get_name' ),
+			'url'      => array( $callbacks, 'get_url' ),
+			'position' => array( $callbacks, 'get_position' ),
+			'company'  => array( $callbacks, 'get_company' ),
 		);
 
+		/**
+		 * Filters item data.
+		 *
+		 * @since 1.0.2
+		 * @param array $data Item data.
+		 * @param array $atts Attributes.
+		 */
 		$this->post_data = apply_filters( 'cherry_testimonials_data_callbacks', $data, $atts );
+
+		return $callbacks;
 	}
 
 	/**
@@ -510,27 +509,37 @@ class Cherry_Testimonials_Data {
 	 */
 	public static function get_contents( $template ) {
 
-		if ( !function_exists( 'WP_Filesystem' ) ) {
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			include_once( ABSPATH . '/wp-admin/includes/file.php' );
 		}
 
 		WP_Filesystem();
 		global $wp_filesystem;
 
-		if ( !$wp_filesystem->exists( $template ) ) { // Check for existence.
+		// Check for existence.
+		if ( ! $wp_filesystem->exists( $template ) ) {
 			return false;
 		}
 
 		// Read the file.
 		$content = $wp_filesystem->get_contents( $template );
 
-		if ( !$content ) {
-			return new WP_Error( 'reading_error', 'Error when reading file' ); // Return error object.
+		if ( ! $content ) {
+			// Return error object.
+			return new WP_Error( 'reading_error', 'Error when reading file' );
 		}
 
 		return $content;
 	}
 
+	/**
+	 * Retrieve a *.tmpl file content.
+	 *
+	 * @since  1.0.0
+	 * @param  string $template  File name.
+	 * @param  string $shortcode Shortcode name.
+	 * @return string
+	 */
 	public function get_template_by_name( $template, $shortcode ) {
 		$file       = '';
 		$default    = CHERRY_TESTI_DIR . 'templates/shortcodes/' . $shortcode . '/default.tmpl';
@@ -538,6 +547,12 @@ class Cherry_Testimonials_Data {
 		$upload_dir = trailingslashit( $upload_dir['basedir'] );
 		$subdir     = 'templates/shortcodes/' . $shortcode . '/' . $template;
 
+		/**
+		 * Filters a default fallback-template.
+		 *
+		 * @since 1.0.0
+		 * @param string $content.
+		 */
 		$content = apply_filters( 'cherry_testimonials_fallback_template', '%%avatar%%<blockquote>%%content%% %%author%%</blockquote>' );
 
 		if ( file_exists( $upload_dir . $subdir ) ) {
@@ -548,11 +563,38 @@ class Cherry_Testimonials_Data {
 			$file = $default;
 		}
 
-		if ( !empty( $file ) ) {
+		if ( ! empty( $file ) ) {
 			$content = self::get_contents( $file );
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Get CSS class name for shortcode by template name.
+	 *
+	 * @since  1.1.0
+	 * @param  string $template Template name.
+	 * @return string|bool
+	 */
+	public function get_template_class( $template ) {
+
+		if ( ! $template ) {
+			return false;
+		}
+
+		/**
+		 * Filters a CSS-class prefix.
+		 *
+		 * Use the same filter for all cherry-related shortcodes.
+		 *
+		 * @since 1.1.0
+		 * @param string $prefix.
+		 */
+		$prefix = apply_filters( 'cherry_shortcodes_template_class_prefix', 'template' );
+		$class  = sprintf( '%s-%s', esc_attr( $prefix ), esc_attr( str_replace( '.tmpl', '', $template ) ) );
+
+		return $class;
 	}
 
 	/**
@@ -564,8 +606,9 @@ class Cherry_Testimonials_Data {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
+		}
 
 		return self::$instance;
 	}

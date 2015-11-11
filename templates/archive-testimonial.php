@@ -13,8 +13,8 @@ $args = array(
 	'size'         => 100,
 	'pager'        => 'true',
 	'template'     => 'page.tmpl',
-	'category'     => !empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
+	'category'     => ! empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
 	'custom_class' => 'testimonials-page testimonials-page_archive',
 );
 $data = new Cherry_Testimonials_Data;
-$data->the_testimonials( $args ); ?>
+$data->the_testimonials( $args );

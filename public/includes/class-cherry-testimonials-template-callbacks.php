@@ -22,19 +22,53 @@ if ( ! defined( 'WPINC' ) ) {
 class Cherry_Testimonials_Template_Callbacks {
 
 	/**
-	 * Shortcode attributes array
+	 * Shortcode attributes array.
 	 * @var array
 	 */
 	public $atts = array();
 
 	/**
-	 * Current post team-related meta
-	 * @var array
+	 * Current post meta.
+	 *
+	 * @since 1.1.0
+	 * @var   array
 	 */
-	public static $post_meta = array();
+	public $post_meta = null;
 
-	function __construct( $atts ) {
+	/**
+	 * Class constructor.
+	 *
+	 * @since 1.1.0
+	 * @param array $atts Set of attributes.
+	 */
+	public function __construct( $atts ) {
 		$this->atts = $atts;
+	}
+
+	/**
+	 * Get post meta.
+	 *
+	 * @since 1.1.0
+	 */
+	public function get_meta() {
+		if ( null === $this->post_meta ) {
+			global $post;
+
+			$this->post_meta = get_post_meta( $post->ID, CHERRY_TESTI_POSTMETA, true );
+		}
+
+		return $this->post_meta;
+	}
+
+	/**
+	 * Clear post data after loop iteration.
+	 *
+	 * @since  1.1.0
+	 *
+	 * @return void
+	 */
+	public function clear_data() {
+		$this->post_meta = null;
 	}
 
 	/**
@@ -49,7 +83,14 @@ class Cherry_Testimonials_Template_Callbacks {
 			return;
 		}
 
-		return ( isset( $post->image ) && $post->image ) ? $post->image  : '';
+		$size = 50;
+		if ( ! empty( $this->atts['size'] ) ) {
+			$size = $this->atts['size'];
+		}
+
+		$avatar = Cherry_Testimonials_Data::get_image( $post->ID, $size );
+
+		return apply_filters( 'cherry_testimonials_avatar_template_callbacks', $avatar, $post->ID, $this->atts );
 	}
 
 	/**
@@ -79,7 +120,7 @@ class Cherry_Testimonials_Template_Callbacks {
 			$content = wp_trim_words( $content, $content_length, apply_filters( 'cherry_testimonials_content_more', '', $this->atts, Cherry_Testimonials_Shortcode::$name ) );
 		}
 
-		return $content;
+		return apply_filters( 'cherry_testimonials_content_template_callbacks', $content, $post->ID, $this->atts );
 	}
 
 	/**
@@ -94,21 +135,19 @@ class Cherry_Testimonials_Template_Callbacks {
 			return;
 		}
 
-		$post_id   = $post->ID;
-		$post_meta = ( isset( $post->{CHERRY_TESTI_POSTMETA} ) ) ? $post->{CHERRY_TESTI_POSTMETA} : false;
-		$name      = ( isset( $post_meta['name'] ) && ( !empty( $post_meta['name'] ) ) ) ? $post_meta['name'] : get_the_title( $post_id );
-		$url       = $this->get_url();
-		$email     = ( isset( $post_meta['email'] ) ) ? $post_meta['email'] : '';
+		$post_meta = $this->get_meta();
+		$name      = ( $post_meta && ! empty( $post_meta['name'] ) ) ? $post_meta['name'] : get_the_title( $post->ID );
+		$url       = ( $post_meta && ! empty( $post_meta['url'] ) ) ? $post_meta['url'] : '';
+		$author    = '<footer><cite class="author" title="' . esc_attr( $name ) . '">';
 
-		$author = '<footer><cite class="author" title="' . esc_attr( $name ) . '">';
-		if ( !empty( $url ) ) {
+		if ( ! empty( $url ) ) {
 			$author .= '<a href="' . esc_url( $url ) . '">' . $name . '</a>';
 		} else {
-			$author .= $name;
+			$author .= esc_html( $name );
 		}
 		$author .= '</cite></footer>';
 
-		return $author;
+		return apply_filters( 'cherry_testimonials_author_template_callbacks', $author, $post->ID, $this->atts );
 	}
 
 	/**
@@ -119,11 +158,7 @@ class Cherry_Testimonials_Template_Callbacks {
 	public function get_email() {
 		global $post;
 
-		$post_meta = ( isset( $post->{CHERRY_TESTI_POSTMETA} ) ) ? $post->{CHERRY_TESTI_POSTMETA} : false;
-
-		if ( false === $post_meta ) {
-			return;
-		}
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['email'] ) ) {
 			return;
@@ -131,7 +166,7 @@ class Cherry_Testimonials_Template_Callbacks {
 
 		$email = '<a href="mailto:' . antispambot( $post_meta['email'], 1 ) .'" class="testimonials-item_email">' . antispambot( $post_meta['email'] ) .'</a>';
 
-		return $email;
+		return apply_filters( 'cherry_testimonials_email_template_callbacks', $email, $post->ID, $this->atts );
 	}
 
 	/**
@@ -142,17 +177,17 @@ class Cherry_Testimonials_Template_Callbacks {
 	public function get_name() {
 		global $post;
 
-		$post_meta = ( isset( $post->{CHERRY_TESTI_POSTMETA} ) ) ? $post->{CHERRY_TESTI_POSTMETA} : false;
-
-		if ( false === $post_meta ) {
-			return;
-		}
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['name'] ) ) {
 			return;
 		}
 
-		return $post_meta['name'];
+		return apply_filters( 'cherry_testimonials_author_name_template_callbacks',
+			esc_html( $post_meta['name'] ),
+			$post->ID,
+			$this->atts
+		);
 	}
 
 	/**
@@ -163,17 +198,66 @@ class Cherry_Testimonials_Template_Callbacks {
 	public function get_url() {
 		global $post;
 
-		$post_meta = ( isset( $post->{CHERRY_TESTI_POSTMETA} ) ) ? $post->{CHERRY_TESTI_POSTMETA} : false;
-
-		if ( false === $post_meta ) {
-			return;
-		}
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['url'] ) ) {
 			return;
 		}
 
-		return $post_meta['url'];
+		if ( isset( $this->atts['clickable_url'] ) && true === $this->atts['clickable_url'] ) {
+			$format = '<a href="%1$s">%1$s</a>';
+		} else {
+			$format = '%s';
+		}
+
+		$link = sprintf( $format, esc_url( $post_meta['url'] ) );
+
+		return apply_filters( 'cherry_testimonials_url_template_callbacks',
+			popuplinks( $link ),
+			$post->ID,
+			$this->atts
+		);
 	}
 
+	/**
+	 * Get author's position.
+	 *
+	 * @since 1.0.3
+	 */
+	public function get_position() {
+		global $post;
+
+		$post_meta = $this->get_meta();
+
+		if ( empty( $post_meta['position'] ) ) {
+			return;
+		}
+
+		return apply_filters( 'cherry_testimonials_position_template_callbacks',
+			esc_html( $post_meta['position'] ),
+			$post->ID,
+			$this->atts
+		);
+	}
+
+	/**
+	 * Get company name.
+	 *
+	 * @since 1.0.3
+	 */
+	public function get_company() {
+		global $post;
+
+		$post_meta = $this->get_meta();
+
+		if ( empty( $post_meta['company'] ) ) {
+			return;
+		}
+
+		return apply_filters( 'cherry_testimonials_company_template_callbacks',
+			esc_html( $post_meta['company'] ),
+			$post->ID,
+			$this->atts
+		);
+	}
 }
