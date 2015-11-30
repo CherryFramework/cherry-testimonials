@@ -9,7 +9,7 @@
 global $wp_query;
 
 $args = array(
-	'limit'        => Cherry_Testimonials_Page_Template::$posts_per_archive_page,
+	'limit'        => Cherry_Testimonials_Page_Template::get_posts_per_archive_page(),
 	'size'         => 100,
 	'pager'        => 'true',
 	'template'     => 'page.tmpl',

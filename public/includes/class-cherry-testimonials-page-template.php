@@ -30,7 +30,7 @@ class Cherry_Testimonials_Page_Template {
 	 * @since 1.0.2
 	 * @var   integer
 	 */
-	public static $posts_per_archive_page = 6;
+	public static $posts_per_archive_page = null;
 
 	/**
 	 * The array of templates that this plugin tracks.
@@ -72,17 +72,6 @@ class Cherry_Testimonials_Page_Template {
 		// Adding support for theme templates to be merged and shown in dropdown.
 		$templates = wp_get_theme()->get_page_templates();
 		$templates = array_merge( $templates, $this->templates );
-
-		/**
-		 * Filter posts per archive page value.
-		 *
-		 * @since 1.0.2
-		 * @var   int
-		 */
-		self::$posts_per_archive_page = apply_filters(
-			'cherry_testimonials_posts_per_archive_page',
-			self::$posts_per_archive_page
-		);
 	}
 
 	/**
@@ -92,16 +81,45 @@ class Cherry_Testimonials_Page_Template {
 	 * @param object $query Main query.
 	 */
 	public function set_posts_per_archive_page( $query ) {
-		if ( ! is_admin()
-			&& $query->is_main_query()
-			&& (
-				$query->is_post_type_archive( CHERRY_TESTI_NAME )
-				|| ( is_tax() && ! empty( $query->queried_object->taxonomy ) && ( CHERRY_TESTI_NAME . '_category' === $query->queried_object->taxonomy ) )
-				)
-			) {
 
-			$query->set( 'posts_per_page', self::$posts_per_archive_page );
+		// Must work only for public.
+		if ( is_admin() ) {
+			return $query;
 		}
+
+		// And only for main query
+		if ( ! $query->is_main_query() ) {
+			return $query;
+		}
+
+		$is_archive = $query->is_post_type_archive( CHERRY_TESTI_NAME );
+
+		if ( $is_archive || $this->is_testi_tax( $query ) ) {
+			$query->set( 'posts_per_page', self::get_posts_per_archive_page() );
+		}
+	}
+
+	/**
+	 * Get number of posts per archive page.
+	 *
+	 * @since  1.1.1
+	 * @return int
+	 */
+	public static function get_posts_per_archive_page() {
+
+		if ( null !== self::$posts_per_archive_page ) {
+			self::$posts_per_archive_page;
+		}
+
+		/**
+		 * Filter posts per archive page value.
+		 *
+		 * @since 1.1.1
+		 * @var   int
+		 */
+		self::$posts_per_archive_page = apply_filters( 'cherry_testimonials_posts_per_archive_page', 6 );
+
+		return self::$posts_per_archive_page;
 	}
 
 	/**
@@ -209,6 +227,19 @@ class Cherry_Testimonials_Page_Template {
 				return $dir . 'single-testimonial.php';
 			}
 		}
+	}
+
+	/**
+	 * Check if passed query is testimonials taxonomy.
+	 *
+	 * @since  1.1.1
+	 * @param  object $query Current query object.
+	 * @return bool
+	 */
+	public function is_testi_tax( $query ) {
+		$tax = CHERRY_TESTI_NAME . '_category';
+
+		return ! empty( $query->query_vars[ $tax ] );
 	}
 
 	/**
