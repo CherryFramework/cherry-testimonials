@@ -157,9 +157,9 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 
 				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
 				$Cherry_Plugin_Update->init( array(
-						'version'         => CHERRY_TESTI_VERSION,
-						'slug'            => CHERRY_TESTI_SLUG,
-						'repository_name' => CHERRY_TESTI_SLUG,
+					'version'         => CHERRY_TESTI_VERSION,
+					'slug'            => CHERRY_TESTI_SLUG,
+					'repository_name' => CHERRY_TESTI_SLUG,
 				) );
 			}
 		}
@@ -177,7 +177,6 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 		 * Pass style handle to CSS compiler.
 		 *
 		 * @since 1.0.0
-		 *
 		 * @param array $handles CSS handles to compile.
 		 */
 		function add_style_to_compiler( $handles ) {

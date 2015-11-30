@@ -4,7 +4,7 @@
  *
  * @package   Cherry_Testimonials
  * @author    Cherry Team
- * @license   GPL-2.0+
+ * @license   GPL-3.0+
  * @link      http://www.cherryframework.com/
  * @copyright 2012 - 2015, Cherry Team
  */

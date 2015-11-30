@@ -36,12 +36,12 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 		 * @var array
 		 */
 		protected $api = array(
-				'version'			=> '',
-				'slug'				=> '',
-				'cloud_url'			=> 'https://cloud.cherryframework.com/cherry-update/',
-				'product_name'		=> 'CherryFramework',
-				'repository_name'	=> '',
-			);
+			'version'         => '',
+			'slug'            => '',
+			'cloud_url'       => 'https://cloud.cherryframework.com/cherry-update/',
+			'product_name'    => 'CherryFramework',
+			'repository_name' => '',
+		);
 
 		/**
 		 * Init class parameters
@@ -60,12 +60,12 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 		 */
 		protected function check_update() {
 			$args = array(
-				'user-agent' => 'WordPress',
+				'user-agent'        => 'WordPress',
 				'github_repository' => $this->api['product_name'] . '/' . $this->api['repository_name'],
-				'current_version' => $this->api['version'],
-				'up_query_limit' => false,
-				'get_alpha' => false,
-				'get_beta' => false,
+				'current_version'   => $this->api['version'],
+				'up_query_limit'    => false,
+				'get_alpha'         => false,
+				'get_beta'          => false,
 			);
 
 			if ( defined( 'CHERRY_ALPHA_UPDATE' ) ) {
@@ -84,6 +84,7 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 
 			if ( $response && 'not_update' !== $response ) {
 				$this->api['details_url'] = $response->details_url;
+
 				return array( 'version' => $response->new_version, 'package' => $response->package );
 			}
 

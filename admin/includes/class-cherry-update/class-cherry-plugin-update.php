@@ -57,11 +57,11 @@ if ( ! class_exists( 'Cherry_Plugin_Update' ) ) {
 
 				$update = new stdClass();
 
-				$update->slug = $this->api['slug'];
-				$update->plugin = $this->api['plugin'];
+				$update->slug        = $this->api['slug'];
+				$update->plugin      = $this->api['plugin'];
 				$update->new_version = $new_update['version'];
-				$update->url = $this->api['details_url'];
-				$update->package = $new_update['package'];
+				$update->url         = $this->api['details_url'];
+				$update->package     = $new_update['package'];
 
 				$data->response[ $this->api['plugin'] ] = $update;
 
