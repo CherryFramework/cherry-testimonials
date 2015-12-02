@@ -17,7 +17,14 @@ if ( ! function_exists( 'cherry_get_header' ) ) {
 
 if ( have_posts() ) :
 
-	while ( have_posts() ) : the_post(); ?>
+	while ( have_posts() ) : the_post();
+
+		/**
+		 * Fire before `Tesimonial` entry.
+		 *
+		 * @since 1.1.1
+		 */
+		do_action( 'cherry_testimonials_entry_before' ); ?>
 
 		<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
 
@@ -34,7 +41,15 @@ if ( have_posts() ) :
 
 		</article>
 
-	<?php endwhile;
+		<?php
+		/**
+		 * Fire after `Tesimonial` entry.
+		 *
+		 * @since 1.1.1
+		 */
+		do_action( 'cherry_testimonials_entry_after' );
+
+		endwhile;
 
 endif;
 

@@ -13,7 +13,14 @@ if ( ! function_exists( 'cherry_get_header' ) ) {
 		<main id="main" class="site-main" role="main">
 <?php }
 
-while ( have_posts() ) : the_post(); ?>
+while ( have_posts() ) : the_post();
+
+	/**
+	 * Fire before `Tesimonial` entry.
+	 *
+	 * @since 1.1.1
+	 */
+	do_action( 'cherry_testimonials_entry_before' ); ?>
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
 
@@ -23,12 +30,21 @@ while ( have_posts() ) : the_post(); ?>
 		'template'     => 'single.tmpl',
 		'custom_class' => 'testimonials-page-single',
 	);
+
 	$data = Cherry_Testimonials_Data::get_instance();
 	$data->the_testimonials( $args ); ?>
 
 	</article>
 
-<?php endwhile;
+	<?php
+	/**
+	 * Fire after `Tesimonial` entry.
+	 *
+	 * @since 1.1.1
+	 */
+	do_action( 'cherry_testimonials_entry_after' );
+
+endwhile;
 
 if ( ! function_exists( 'cherry_get_footer' ) ) { ?>
 		</main><!-- .site-main -->
