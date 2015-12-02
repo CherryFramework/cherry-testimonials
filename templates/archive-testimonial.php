@@ -18,27 +18,22 @@ if ( ! function_exists( 'cherry_get_header' ) ) {
 	 *
 	 * @since 1.1.1
 	 */
-	do_action( 'cherry_testimonials_entry_before' ); ?>
+	do_action( 'cherry_testimonials_entry_before' );
 
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
+	global $wp_query;
 
-		<?php global $wp_query;
+	$args = array(
+		'limit'        => Cherry_Testimonials_Page_Template::get_posts_per_archive_page(),
+		'size'         => 100,
+		'pager'        => 'true',
+		'template'     => 'page.tmpl',
+		'category'     => ! empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
+		'custom_class' => 'testimonials-page testimonials-page_archive',
+	);
 
-		$args = array(
-			'limit'        => Cherry_Testimonials_Page_Template::get_posts_per_archive_page(),
-			'size'         => 100,
-			'pager'        => 'true',
-			'template'     => 'page.tmpl',
-			'category'     => ! empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
-			'custom_class' => 'testimonials-page testimonials-page_archive',
-		);
+	$data = Cherry_Testimonials_Data::get_instance();
+	$data->the_testimonials( $args );
 
-		$data = Cherry_Testimonials_Data::get_instance();
-		$data->the_testimonials( $args ); ?>
-
-	</article>
-
-	<?php
 	/**
 	 * Fire after `Tesimonial` entry.
 	 *

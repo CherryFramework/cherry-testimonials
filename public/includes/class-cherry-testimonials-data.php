@@ -122,6 +122,10 @@ class Cherry_Testimonials_Data {
 		// The Query.
 		$query = $this->get_testimonials( $args );
 
+		if ( false === $query || is_wp_error( $query ) ) {
+			return;
+		}
+
 		global $wp_query;
 
 		$this->temp_query = $wp_query;
@@ -135,11 +139,6 @@ class Cherry_Testimonials_Data {
 			$args['pager'] = true;
 		} else {
 			$args['pager'] = false;
-		}
-
-		// The Display.
-		if ( is_wp_error( $query ) ) {
-			return;
 		}
 
 		$css_class = '';

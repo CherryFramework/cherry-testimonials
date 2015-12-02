@@ -64,8 +64,9 @@ class Cherry_Testimonials_Page_Template {
 		// Add a filter to load a custom template for a given post.
 		add_filter( 'single_template', array( $this, 'get_single_template' ) );
 
-		// Display navigation to next/previous post.
-		add_action( 'cherry_testimonials_entry_after', array( $this, 'post_navigation' ) );
+		// Display entry wrapper.
+		add_action( 'cherry_testimonials_entry_before', array( $this, 'entry_before' ) );
+		add_action( 'cherry_testimonials_entry_after', array( $this, 'entry_after' ) );
 
 		// Add your templates to this array.
 		$this->templates = array(
@@ -248,18 +249,33 @@ class Cherry_Testimonials_Page_Template {
 	}
 
 	/**
-	 * Display navigation to next/previous post when applicable.
+	 * Display entry opening tag.
 	 *
 	 * @since 1.1.1
 	 */
-	public function post_navigation() {
+	public function entry_before() {
+		printf( '<article id="post-%d" class="%s">', get_the_ID(), implode( ' ', get_post_class( 'clearfix' ) ) );
+	}
+
+	/**
+	 * Display entry closing tag and navigation to next/previous post.
+	 *
+	 * @since 1.1.1
+	 */
+	public function entry_after() {
 
 		if ( defined( 'CHERRY_VERSION' ) ) {
 			do_action( 'cherry_entry_after' );
-		} else {
-			the_post_navigation();
+			return;
 		}
 
+		echo '</article>';
+
+		if ( ! function_exists( 'the_post_navigation' ) ) {
+			return;
+		}
+
+		the_post_navigation();
 	}
 
 	/**

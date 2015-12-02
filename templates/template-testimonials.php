@@ -24,11 +24,9 @@ if ( have_posts() ) :
 		 *
 		 * @since 1.1.1
 		 */
-		do_action( 'cherry_testimonials_entry_before' ); ?>
+		do_action( 'cherry_testimonials_entry_before' );
 
-		<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
-
-		<?php $args = array(
+		$args = array(
 			'limit'        => 4,
 			'size'         => 100,
 			'pager'        => 'true',
@@ -37,11 +35,8 @@ if ( have_posts() ) :
 		);
 
 		$data = Cherry_Testimonials_Data::get_instance();
-		$data->the_testimonials( $args ); ?>
+		$data->the_testimonials( $args );
 
-		</article>
-
-		<?php
 		/**
 		 * Fire after `Tesimonial` entry.
 		 *
