@@ -6,19 +6,32 @@
  * @since   1.0.0
  */
 
-while ( have_posts() ) : the_post();
+if ( ! function_exists( 'cherry_get_header' ) ) {
+	get_header(); ?>
 
-	do_action( 'cherry_entry_before' );
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+<?php }
 
-	$args = array(
+while ( have_posts() ) : the_post(); ?>
+
+	<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
+
+	<?php $args = array(
 		'id'           => get_the_ID(),
 		'size'         => 100,
 		'template'     => 'single.tmpl',
 		'custom_class' => 'testimonials-page-single',
 	);
-	$data = new Cherry_Testimonials_Data;
-	$data->the_testimonials( $args );
+	$data = Cherry_Testimonials_Data::get_instance();
+	$data->the_testimonials( $args ); ?>
 
-	do_action( 'cherry_entry_after' );
+	</article>
 
-endwhile;
+<?php endwhile;
+
+if ( ! function_exists( 'cherry_get_footer' ) ) { ?>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+	<?php get_footer();
+} ?>

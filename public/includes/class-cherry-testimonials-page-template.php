@@ -227,6 +227,8 @@ class Cherry_Testimonials_Page_Template {
 				return $dir . 'single-testimonial.php';
 			}
 		}
+
+		return $template;
 	}
 
 	/**
