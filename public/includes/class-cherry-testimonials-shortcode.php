@@ -360,6 +360,12 @@ class Cherry_Testimonials_Shortcode {
 			'open'  => '%%CONTENT%%',
 			'close' => '',
 		);
+		$macros_buttons['date'] = array(
+			'id'    => 'cherry_date',
+			'value' => __( 'Date', 'cherry-testimonials' ),
+			'open'  => '%%DATE%%',
+			'close' => '',
+		);
 		$macros_buttons['author'] = array(
 			'id'    => 'cherry_author',
 			'value' => __( 'Name + URL (HTML-formatted)', 'cherry-testimonials' ),

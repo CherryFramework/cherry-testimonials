@@ -405,6 +405,7 @@ class Cherry_Testimonials_Data {
 	 * Get testimonials items.
 	 *
 	 * @since  1.0.0
+	 * @since  1.1.1 Changed a pattern ($macros) for `preg_replace_callback` function.
 	 * @param  array $query WP_query object.
 	 * @param  array $args  The array of arguments.
 	 * @return string
@@ -431,7 +432,16 @@ class Cherry_Testimonials_Data {
 			return false;
 		}
 
-		$macros    = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
+		/**
+		 * Filter a pattern for `preg_replace_callback` function.
+		 *
+		 * @since 1.1.1
+		 * @param string $macros Pattern.
+		 */
+		$macros = apply_filters( 'cherry_testimonials_macros_pattern',
+			'/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_,:@\/\s]+)?[\'\"])?%%/'
+		);
+
 		$callbacks = $this->setup_template_data( $args );
 
 		foreach ( $query->posts as $post ) {
@@ -486,6 +496,7 @@ class Cherry_Testimonials_Data {
 			'url'      => array( $callbacks, 'get_url' ),
 			'position' => array( $callbacks, 'get_position' ),
 			'company'  => array( $callbacks, 'get_company' ),
+			'date'     => array( $callbacks, 'get_date' ),
 		);
 
 		/**

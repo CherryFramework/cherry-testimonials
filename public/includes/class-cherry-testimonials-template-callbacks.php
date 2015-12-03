@@ -260,4 +260,31 @@ class Cherry_Testimonials_Template_Callbacks {
 			$this->atts
 		);
 	}
+
+	/**
+	 * Get testimonial's date.
+	 *
+	 * @since  1.1.1
+	 * @param  string $format PHP date format.
+	 * @return string         The formatted date string.
+	 */
+	public function get_date( $format = '' ) {
+		global $post;
+
+		if ( empty( $format ) ) {
+			$format = get_option( 'date_format' );
+		}
+
+		$date = sprintf(
+			'<time datetime="%1$s">%2$s</time>',
+			esc_attr( get_the_date( 'c' ) ),
+			esc_attr( get_the_date( $format, $post->ID ) )
+		);
+
+		return apply_filters( 'cherry_testimonials_date_template_callbacks',
+			$date,
+			$post->ID,
+			$this->atts
+		);
+	}
 }
