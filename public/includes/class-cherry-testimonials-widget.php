@@ -239,7 +239,7 @@ class Cherry_Testimonials_Widget extends WP_Widget {
 		$instance['display_author'] = (bool) esc_attr( $new_instance['display_author'] );
 		$instance['display_avatar'] = (bool) esc_attr( $new_instance['display_avatar'] );
 
-		$instance['custom_class'] = sanitize_html_class( $new_instance['custom_class'] );
+		$instance['custom_class'] = esc_attr( $new_instance['custom_class'] );
 
 		return apply_filters( 'cherry_testimonials_widget_update', $instance );
 	}
