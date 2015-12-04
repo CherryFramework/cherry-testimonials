@@ -30,14 +30,12 @@ class Cherry_Testimonials_Registration {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-
-		// Adds the testimonials post type.
 		add_action( 'init', array( __CLASS__, 'register_post_type' ) );
 		add_action( 'init', array( __CLASS__, 'register_taxonomy' ) );
 	}
 
 	/**
-	 * Register the custom post type.
+	 * Register the Testimonial post type.
 	 *
 	 * @since 1.0.0
 	 * @link http://codex.wordpress.org/Function_Reference/register_post_type
@@ -67,21 +65,29 @@ class Cherry_Testimonials_Registration {
 		);
 
 		$args = array(
-			'labels'          => $labels,
-			'supports'        => $supports,
-			'public'          => true,
-			'capability_type' => 'post',
-			'hierarchical'    => false, // Hierarchical causes memory issues - WP loads all records!
-			'rewrite'         => array(
+			'labels'              => $labels,
+			'supports'            => $supports,
+			'public'              => true,
+			'publicly_queryable'  => true,
+			'show_in_nav_menus'   => false,
+			'show_in_admin_bar'   => true,
+			'exclude_from_search' => false,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_position'       => null,
+			'menu_icon'           => 'dashicons-testimonial',
+			'can_export'          => true,
+			'hierarchical'        => false,
+			'has_archive'         => true,
+			'query_var'           => true,
+			'capability_type'     => 'post',
+			'map_meta_cap'        => true,
+			'rewrite'             => array(
 				'slug'       => 'testimonial-view',
 				'with_front' => false,
+				'pages'      => true,
 				'feeds'      => true,
 			),
-			'query_var'       => true,
-			'menu_position'   => null,
-			'menu_icon'       => ( version_compare( $GLOBALS['wp_version'], '3.8', '>=' ) ) ? 'dashicons-testimonial' : '',
-			'can_export'      => true,
-			'has_archive'     => true,
 		);
 
 		$args = apply_filters( 'cherry_testimonials_post_type_args', $args );
@@ -90,39 +96,46 @@ class Cherry_Testimonials_Registration {
 	}
 
 	/**
-	 * Register the custom taxonomy.
+	 * Register the Testimonial Category taxonomy.
 	 *
 	 * @since 1.0.0
 	 * @link  https://codex.wordpress.org/Function_Reference/register_taxonomy
 	 */
 	public static function register_taxonomy() {
 		$labels = array(
-			'name'                       => __( 'Testimonials Categories', 'cherry-testimonials' ),
-			'singular_name'              => __( 'Edit Category', 'cherry-testimonials' ),
+			'name'                       => __( 'Testimonial Categories', 'cherry-testimonials' ),
+			'singular_name'              => __( 'Testimonial Category', 'cherry-testimonials' ),
+			'menu_name'                  => __( 'Categories', 'cherry-testimonials' ),
 			'search_items'               => __( 'Search Categories', 'cherry-testimonials' ),
 			'popular_items'              => __( 'Popular Categories', 'cherry-testimonials' ),
 			'all_items'                  => __( 'All Categories', 'cherry-testimonials' ),
-			'parent_item'                => null,
-			'parent_item_colon'          => null,
 			'edit_item'                  => __( 'Edit Category', 'cherry-testimonials' ),
 			'update_item'                => __( 'Update Category', 'cherry-testimonials' ),
 			'add_new_item'               => __( 'Add New Category', 'cherry-testimonials' ),
 			'new_item_name'              => __( 'New Category Name', 'cherry-testimonials' ),
-			'separate_items_with_commas' => __( 'Separate categories with commas', 'cherry-testimonials' ),
-			'add_or_remove_items'        => __( 'Add or remove categories', 'cherry-testimonials' ),
-			'choose_from_most_used'      => __( 'Choose from the most used categories', 'cherry-testimonials' ),
-			'not_found'                  => __( 'No categories found.', 'cherry-testimonials' ),
-			'menu_name'                  => __( 'Categories', 'cherry-testimonials' ),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'separate_items_with_commas' => null,
+			'add_or_remove_items'        => null,
+			'choose_from_most_used'      => null,
+			'not_found'                  => null,
 		);
 
 		$args = array(
-			'hierarchical'          => true,
-			'labels'                => $labels,
+			'public'                => true,
 			'show_ui'               => true,
+			'show_in_nav_menus'     => true,
+			'show_tagcloud'         => true,
 			'show_admin_column'     => true,
-			'update_count_callback' => '_update_post_term_count',
+			'hierarchical'          => true,
 			'query_var'             => true,
-			'rewrite'               => array( 'slug' => CHERRY_TESTI_NAME . '_category' ),
+			'labels'                => $labels,
+			'update_count_callback' => '_update_post_term_count',
+			'rewrite'               => array(
+				'slug'         => CHERRY_TESTI_NAME . '_category',
+				'with_front'   => false,
+				'hierarchical' => true,
+			),
 		);
 
 		register_taxonomy( CHERRY_TESTI_NAME . '_category', CHERRY_TESTI_NAME, $args );
