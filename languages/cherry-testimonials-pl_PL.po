@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherry-testimonials\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-05 18:52+0200\n"
-"PO-Revision-Date: 2015-11-05 18:52+0200\n"
+"POT-Creation-Date: 2015-12-09 15:09+0200\n"
+"PO-Revision-Date: 2015-12-09 15:09+0200\n"
 "Last-Translator: J.L.Dokter <jldokter@gmail.com>\n"
 "Language-Team: Cherry Team <support@cherryframework.com>\n"
 "Language: pl_PL\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__;_n:1,2;_n_noop:1,2;_x:1,2c;_nx:1,2,4c;"
 "_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
@@ -20,231 +20,258 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/includes/class-cherry-testimonials-admin.php:95
-#: public/includes/class-cherry-testimonials-widget.php:302
-msgid "Title"
-msgstr "Tytuł"
-
-#: admin/includes/class-cherry-testimonials-admin.php:96
-msgid "Author"
+#: admin/includes/class-cherry-testimonials-admin.php:102
+#: public/includes/class-cherry-testimonials-shortcode.php:341
+msgid "Avatar"
 msgstr ""
 
-#: admin/includes/class-cherry-testimonials-admin.php:97
+#: admin/includes/class-cherry-testimonials-admin.php:103
+msgid "Author"
+msgstr "Autor"
+
+#: admin/includes/class-cherry-testimonials-admin.php:104
+#: public/includes/class-cherry-testimonials-shortcode.php:347
+msgid "Position"
+msgstr "Położenie"
+
+#: admin/includes/class-cherry-testimonials-admin.php:105
+msgid "Company Name"
+msgstr ""
+
+#: admin/includes/class-cherry-testimonials-admin.php:106
 #: public/includes/class-cherry-testimonials-shortcode.php:133
 msgid "Date"
 msgstr "Daty"
 
-#: admin/includes/class-cherry-testimonials-admin.php:98
-msgid "Thumbnail"
-msgstr ""
-
-#: admin/includes/class-cherry-testimonials-meta-boxes.php:45
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:50
 msgid "Testimonial Options"
-msgstr ""
+msgstr "Opcje dowodów uznania"
 
-#: admin/includes/class-cherry-testimonials-meta-boxes.php:51
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:56
 msgid "Name:"
-msgstr ""
-
-#: admin/includes/class-cherry-testimonials-meta-boxes.php:52
-msgid "Enter author's name."
-msgstr ""
+msgstr "Imię:"
 
 #: admin/includes/class-cherry-testimonials-meta-boxes.php:57
-msgid "E-mail:"
-msgstr ""
-
-#: admin/includes/class-cherry-testimonials-meta-boxes.php:58
-msgid "Enter an e-mail address."
-msgstr ""
+msgid "Enter author's name."
+msgstr "Wprowadź imię autora."
 
 #: admin/includes/class-cherry-testimonials-meta-boxes.php:63
-msgid "URL:"
-msgstr ""
+msgid "E-mail:"
+msgstr "E-mail:"
 
 #: admin/includes/class-cherry-testimonials-meta-boxes.php:64
-msgid "Enter the URL."
+msgid "Enter an e-mail address."
+msgstr "Wprowadź adres e-mail."
+
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:70
+msgid "Position:"
 msgstr ""
 
-#: admin/views/widget.php:11
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:71
+msgid "Position in Company."
+msgstr ""
+
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:77
+msgid "Company Name:"
+msgstr ""
+
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:78
+msgid "Enter the author Company Name."
+msgstr ""
+
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:84
+msgid "URL:"
+msgstr "URL:"
+
+#: admin/includes/class-cherry-testimonials-meta-boxes.php:85
+msgid "Enter the link to author's site, or company website."
+msgstr ""
+
+#: admin/views/widget.php:12
 msgid "Title:"
 msgstr "Tytuł:"
 
-#: admin/views/widget.php:16
+#: admin/views/widget.php:17
 msgid "Limit:"
-msgstr ""
+msgstr "Limit:"
 
-#: admin/views/widget.php:21
+#: admin/views/widget.php:22
 msgid "Image Size (in pixels):"
-msgstr ""
+msgstr "Rozmiar zdjęcia (w pikselach):"
 
-#: admin/views/widget.php:27
+#: admin/views/widget.php:28
 msgid "Display Author"
-msgstr ""
+msgstr "Wyświetlać autora"
 
-#: admin/views/widget.php:32
+#: admin/views/widget.php:33
 msgid "Display Avatar"
-msgstr ""
+msgstr "Wyświetlać awatar"
 
-#: admin/views/widget.php:36
+#: admin/views/widget.php:37
 msgid "Specific ID:"
-msgstr ""
+msgstr "Specific ID:"
 
-#: admin/views/widget.php:39
+#: admin/views/widget.php:40
 msgid "Testimonials Post IDs, separated by commas."
-msgstr ""
+msgstr "ID dowodów uznania wpisów, oddzielone przecinkami."
 
-#: admin/views/widget.php:42
+#: admin/views/widget.php:43
 msgid "Order By:"
-msgstr ""
+msgstr "Porządkuj według:"
 
-#: admin/views/widget.php:51
+#: admin/views/widget.php:52
 msgid "Order Direction:"
-msgstr ""
+msgstr "Kierunek kolejności:"
 
-#: admin/views/widget.php:60
+#: admin/views/widget.php:61
 msgid "Post content:"
-msgstr ""
+msgstr "Treść wpisu:"
 
-#: admin/views/widget.php:69
+#: admin/views/widget.php:70
 msgid "Content Length:"
-msgstr ""
+msgstr "Długość treści:"
 
-#: admin/views/widget.php:74
+#: admin/views/widget.php:75
 msgid "Template:"
-msgstr ""
+msgstr "Szablon:"
 
-#: admin/views/widget.php:79
+#: admin/views/widget.php:80
 msgid "Custom CSS Class:"
-msgstr ""
+msgstr "Niestandardowa klasa CSS:"
 
-#: cherry-testimonials.php:216
+#: cherry-testimonials.php:220
 msgid "Testimonials posts"
-msgstr ""
+msgstr "Wpisy dowodów uznania"
 
-#: cherry-testimonials.php:219
+#: cherry-testimonials.php:223
 msgid ""
 "You can choose if you want to display sidebars and how you want to display "
 "them."
 msgstr ""
-
-#: cherry-testimonials.php:225
-msgid "Left sidebar"
-msgstr ""
+"Możesz wybrać opcję wyświetlania panelów bocznych oraz w jaki sposób ich "
+"wyświetlać (tryb)"
 
 #: cherry-testimonials.php:229
-msgid "Right sidebar"
-msgstr ""
+msgid "Left sidebar"
+msgstr "Lewy panel boczny"
 
 #: cherry-testimonials.php:233
-msgid "Left and right sidebar"
-msgstr ""
+msgid "Right sidebar"
+msgstr "Prawy panel boczny"
 
 #: cherry-testimonials.php:237
-msgid "Two sidebars on the left"
-msgstr ""
+msgid "Left and right sidebar"
+msgstr "Lewy i prawy panele boczne"
 
 #: cherry-testimonials.php:241
-msgid "Two sidebars on the right"
-msgstr ""
+msgid "Two sidebars on the left"
+msgstr "Dwa panele boczne po lewej stronie"
 
 #: cherry-testimonials.php:245
+msgid "Two sidebars on the right"
+msgstr "Dwa panele boczne po prawej stronie"
+
+#: cherry-testimonials.php:249
 msgid "No sidebar"
-msgstr ""
+msgstr "Bez panelu bocznego"
 
 #: public/includes/class-cherry-testimonials-page-template.php:69
 #: public/includes/class-cherry-testimonials-registration.php:47
 #: public/includes/class-cherry-testimonials-shortcode.php:101
 msgid "Testimonials"
-msgstr ""
+msgstr "Dowody uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:48
 msgid "Testimonial"
-msgstr ""
+msgstr "Dowód uznania "
 
 #: public/includes/class-cherry-testimonials-registration.php:49
 msgid "Add New"
-msgstr ""
+msgstr "Dodaj nowy"
 
 #: public/includes/class-cherry-testimonials-registration.php:50
 msgid "Add New Testimonial"
-msgstr ""
+msgstr "Dodaj nowy dowód uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:51
 msgid "Edit Testimonial"
-msgstr ""
+msgstr "Edytuj dowód uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:52
 msgid "New Testimonial"
-msgstr ""
+msgstr "Nowy dowód uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:53
 msgid "View Testimonial"
-msgstr ""
+msgstr "Pokaż dowód uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:54
 msgid "Search Testimonials"
-msgstr ""
+msgstr "Wyszukaj dowodów uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:55
 msgid "No testimonials found"
-msgstr ""
+msgstr "Nie znaleziono dowodów uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:56
 msgid "No testimonials found in trash"
-msgstr ""
+msgstr "Nie znaleziono dowodów uznania w Koszu"
 
 #: public/includes/class-cherry-testimonials-registration.php:100
 msgid "Testimonials Categories"
-msgstr ""
+msgstr "Kategorie dowodów uznania"
 
 #: public/includes/class-cherry-testimonials-registration.php:101
 #: public/includes/class-cherry-testimonials-registration.php:107
 msgid "Edit Category"
-msgstr ""
+msgstr "Edytuj kategorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:102
 msgid "Search Categories"
-msgstr ""
+msgstr "Wyszukaj kategorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:103
 msgid "Popular Categories"
-msgstr ""
+msgstr "Popularne kategorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:104
 msgid "All Categories"
-msgstr ""
+msgstr "Wszystkie kategorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:108
 msgid "Update Category"
-msgstr ""
+msgstr "Zaktualizuj ketegorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:109
 msgid "Add New Category"
-msgstr ""
+msgstr "Dodaj nową kategorię"
 
 #: public/includes/class-cherry-testimonials-registration.php:110
 msgid "New Category Name"
-msgstr ""
+msgstr "Nazwa nowej kategorii"
 
 #: public/includes/class-cherry-testimonials-registration.php:111
 msgid "Separate categories with commas"
-msgstr ""
+msgstr "Oddzielaj kategorie przecinkami"
 
 #: public/includes/class-cherry-testimonials-registration.php:112
 msgid "Add or remove categories"
-msgstr ""
+msgstr "Dodaj lub usuń kategorie"
 
 #: public/includes/class-cherry-testimonials-registration.php:113
 msgid "Choose from the most used categories"
-msgstr ""
+msgstr "Wybierz spomiędzy najbardziej używanych kategorii"
 
 #: public/includes/class-cherry-testimonials-registration.php:114
 msgid "No categories found."
-msgstr ""
+msgstr "Nie znaleziono kategorii"
 
 #: public/includes/class-cherry-testimonials-registration.php:115
 msgid "Categories"
+msgstr "Kategorie"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:102
+msgid "This is a Testimonials Shortcode"
 msgstr ""
 
 #: public/includes/class-cherry-testimonials-shortcode.php:112
@@ -253,15 +280,15 @@ msgstr "Limit"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:113
 msgid "Maximum number of posts."
-msgstr ""
+msgstr "Maksymalna liczba wpisów"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:118
-#: public/includes/class-cherry-testimonials-widget.php:318
+#: public/includes/class-cherry-testimonials-widget.php:319
 msgid "Descending"
 msgstr "Malejąco"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:119
-#: public/includes/class-cherry-testimonials-widget.php:317
+#: public/includes/class-cherry-testimonials-widget.php:318
 msgid "Ascending"
 msgstr "Rosnąco"
 
@@ -331,11 +358,11 @@ msgstr "Kategoria"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:151
 msgid "Select category to show testimonials from"
-msgstr ""
+msgstr "Wybierz kategorie, z jakich należy pokazywać dowody uznania"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:155
 msgid "Post ID's"
-msgstr "ID-ki wpisów"
+msgstr "ID wpisów"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:156
 msgid "Enter comma separated ID's of the posts that you want to show"
@@ -344,128 +371,177 @@ msgstr "Wprowadź, oddzielone przecinkami ID-ki wpisów, które chce wyświetli�
 #: public/includes/class-cherry-testimonials-shortcode.php:161
 #: public/includes/class-cherry-testimonials-shortcode.php:162
 msgid "Display author?"
-msgstr ""
+msgstr "Wyświetlać autora"
 
 #: public/includes/class-cherry-testimonials-shortcode.php:167
 #: public/includes/class-cherry-testimonials-shortcode.php:168
 msgid "Display avatar?"
+msgstr "Wyświetlać awatar?"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:173
+msgid "Clickable URL?"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-shortcode.php:176
-msgid "Avatar size"
-msgstr ""
-
-#: public/includes/class-cherry-testimonials-shortcode.php:177
-msgid "Avatar size (in pixels)"
+#: public/includes/class-cherry-testimonials-shortcode.php:174
+msgid "Make clickable URL"
 msgstr ""
 
 #: public/includes/class-cherry-testimonials-shortcode.php:182
-#: public/includes/class-cherry-testimonials-widget.php:330
-msgid "Part of content"
-msgstr ""
+msgid "Avatar size"
+msgstr "Rozmiar awataru "
 
 #: public/includes/class-cherry-testimonials-shortcode.php:183
-#: public/includes/class-cherry-testimonials-widget.php:331
-msgid "Full content"
-msgstr ""
+msgid "Avatar size (in pixels)"
+msgstr "Rozmiar awataru (w pikselach)"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:186
+#: public/includes/class-cherry-testimonials-shortcode.php:188
+#: public/includes/class-cherry-testimonials-widget.php:331
+msgid "Part of content"
+msgstr "Część treści"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:189
+#: public/includes/class-cherry-testimonials-widget.php:332
+msgid "Full content"
+msgstr "Pełna treść"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:192
 msgid "Post content"
 msgstr "Treść wpisu"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:187
+#: public/includes/class-cherry-testimonials-shortcode.php:193
 msgid "Choose to display a part or full content"
-msgstr ""
+msgstr "Wybierz częściową lub pełną treść do wyświetlania"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:195
+#: public/includes/class-cherry-testimonials-shortcode.php:201
 msgid "Content Length"
-msgstr ""
+msgstr "Długość treści "
 
-#: public/includes/class-cherry-testimonials-shortcode.php:196
+#: public/includes/class-cherry-testimonials-shortcode.php:202
 msgid "Insert the number of words you want to show in the post content."
-msgstr ""
+msgstr "Wpisz liczbę słów do wyświetlania w treści wpisu"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:204
+#: public/includes/class-cherry-testimonials-shortcode.php:210
 msgid "Template"
 msgstr "Szablon"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:205
+#: public/includes/class-cherry-testimonials-shortcode.php:211
 msgid "Shortcode template"
-msgstr ""
+msgstr "Szablon shortcode'u"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:209
+#: public/includes/class-cherry-testimonials-shortcode.php:215
 msgid "Class"
 msgstr "Klasa"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:210
+#: public/includes/class-cherry-testimonials-shortcode.php:216
 msgid "Extra CSS class"
 msgstr "Dodatkowa klasa CSS"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:316
-msgid "Author's name"
+#: public/includes/class-cherry-testimonials-shortcode.php:323
+msgid "Name"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-shortcode.php:322
-msgid "Author's avatar"
+#: public/includes/class-cherry-testimonials-shortcode.php:329
+msgid "Email"
+msgstr "E-mail"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:335
+msgid "URL"
+msgstr "URL"
+
+#: public/includes/class-cherry-testimonials-shortcode.php:353
+msgid "Company"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-shortcode.php:328
-msgid "Author's email"
-msgstr ""
-
-#: public/includes/class-cherry-testimonials-shortcode.php:334
-msgid "Author's URL"
-msgstr ""
-
-#: public/includes/class-cherry-testimonials-shortcode.php:340
+#: public/includes/class-cherry-testimonials-shortcode.php:359
 msgid "Content"
 msgstr "Treść"
 
-#: public/includes/class-cherry-testimonials-shortcode.php:357
-msgid "Author's name (Testimonials only)"
+#: public/includes/class-cherry-testimonials-shortcode.php:365
+msgid "Name + URL (HTML-formatted)"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-shortcode.php:363
-msgid "Author's email (Testimonials only)"
+#: public/includes/class-cherry-testimonials-shortcode.php:382
+msgid "Author Name (Testimonials only)"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-shortcode.php:369
-msgid "Author's URL (Testimonials only)"
+#: public/includes/class-cherry-testimonials-shortcode.php:388
+msgid "Email (Testimonials only)"
 msgstr ""
 
-#: public/includes/class-cherry-testimonials-widget.php:42
+#: public/includes/class-cherry-testimonials-shortcode.php:394
+msgid "URL (Testimonials only)"
+msgstr ""
+
+#: public/includes/class-cherry-testimonials-shortcode.php:400
+msgid "Name + URL (Testimonials only)"
+msgstr ""
+
+#: public/includes/class-cherry-testimonials-shortcode.php:406
+msgid "Position (Testimonials only)"
+msgstr ""
+
+#: public/includes/class-cherry-testimonials-shortcode.php:412
+msgid "Company (Testimonials only)"
+msgstr ""
+
+#: public/includes/class-cherry-testimonials-widget.php:43
 msgid "Cherry Testimonials"
-msgstr ""
+msgstr "Dowody uznania Cherry"
 
-#: public/includes/class-cherry-testimonials-widget.php:45
+#: public/includes/class-cherry-testimonials-widget.php:46
 msgid "Your site's most recent Testimonials."
-msgstr ""
-
-#: public/includes/class-cherry-testimonials-widget.php:300
-msgid "No Order"
-msgstr ""
+msgstr "Ostatnie dowody uznania Twojej strony."
 
 #: public/includes/class-cherry-testimonials-widget.php:301
+msgid "No Order"
+msgstr "Brak kolejności"
+
+#: public/includes/class-cherry-testimonials-widget.php:302
 msgid "Entry ID"
-msgstr ""
+msgstr "Entry ID"
 
 #: public/includes/class-cherry-testimonials-widget.php:303
-msgid "Date Added"
-msgstr ""
+msgid "Title"
+msgstr "Tytuł"
 
 #: public/includes/class-cherry-testimonials-widget.php:304
-msgid "Attributes Order"
-msgstr ""
+msgid "Date Added"
+msgstr "Data dodawania"
 
 #: public/includes/class-cherry-testimonials-widget.php:305
+msgid "Attributes Order"
+msgstr "Kolejność atrybutów"
+
+#: public/includes/class-cherry-testimonials-widget.php:306
 msgid "Random Order"
-msgstr ""
+msgstr "Przypadkowa kolejność "
 
-#~ msgid "Position"
-#~ msgstr "Położenie"
+#~ msgid "Thumbnail"
+#~ msgstr "Miniaturka"
 
-#~ msgid "Email"
-#~ msgstr "E-mail"
+#~ msgid "Enter the URL."
+#~ msgstr "Wprowadź adres URL."
+
+#~ msgid "Author's name"
+#~ msgstr "Imię autora"
+
+#~ msgid "Author's avatar"
+#~ msgstr "Awatar autora"
+
+#~ msgid "Author's email"
+#~ msgstr "E-mail autora"
+
+#~ msgid "Author's URL"
+#~ msgstr "Adres URL autora"
+
+#~ msgid "Author's name (Testimonials only)"
+#~ msgstr "Imię autora (wyłącznie dla dowodów uznania)"
+
+#~ msgid "Author's email (Testimonials only)"
+#~ msgstr "E-mail autora (wyłącznie dla dowodów uznania)"
+
+#~ msgid "Author's URL (Testimonials only)"
+#~ msgstr "URL autora (wyłącznie dla dowodów uznania)"
 
 #~ msgid "Preview"
 #~ msgstr "Podgląd"
@@ -862,9 +938,6 @@ msgstr ""
 #~ "b> a później użyj url-a w ten sposób http://example.com/url-strony#Witaj. "
 #~ "Wtedy zakładka stanie się aktywna, a przeglądarka przewinie stronę do "
 #~ "miejsca w którym się ona znajduje."
-
-#~ msgid "URL"
-#~ msgstr "URL"
 
 #~ msgid "Link target"
 #~ msgstr "Właściwość \"target\" linku"
