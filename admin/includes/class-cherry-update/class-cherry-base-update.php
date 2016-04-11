@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for the base update
+ * Class for the base update.
  *
  * @package    Cherry_Base_Update
  * @subpackage Base_Update
@@ -26,27 +26,32 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 	 */
 
 	/**
-	 * Base updater class
+	 * Base updater class.
+	 *
+	 * @since 1.0.0
 	 */
 	class Cherry_Base_Update {
 
 		/**
-		 * Api parameters
+		 * Api parameters.
 		 *
+		 * @since 1.0.0
+		 * @access protected
 		 * @var array
 		 */
 		protected $api = array(
-				'version'			=> '',
-				'slug'				=> '',
-				'cloud_url'			=> 'https://cloud.cherryframework.com/cherry-update/',
-				'product_name'		=> 'CherryFramework',
-				'repository_name'	=> '',
-			);
+			'version'         => '',
+			'slug'            => '',
+			'cloud_url'       => 'https://cloud.cherryframework.com/cherry-update/',
+			'product_name'    => 'CherryFramework',
+			'repository_name' => '',
+		);
 
 		/**
-		 * Init class parameters
+		 * Init class parameters.
 		 *
-		 * @param  array $attr input attributes array.
+		 * @since  1.0.0
+		 * @param  array $attr Input attributes array.
 		 * @return void
 		 */
 		protected function base_init( $attr = array() ) {
@@ -54,18 +59,19 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 		}
 
 		/**
-		 * Check if update are avaliable
+		 * Check if update are avaliable.
 		 *
+		 * @since  1.0.0
 		 * @return array
 		 */
 		protected function check_update() {
 			$args = array(
-				'user-agent' => 'WordPress',
+				'user-agent'        => 'WordPress',
 				'github_repository' => $this->api['product_name'] . '/' . $this->api['repository_name'],
-				'current_version' => $this->api['version'],
-				'up_query_limit' => false,
-				'get_alpha' => false,
-				'get_beta' => false,
+				'current_version'   => $this->api['version'],
+				'up_query_limit'    => false,
+				'get_alpha'         => false,
+				'get_beta'          => false,
 			);
 
 			if ( defined( 'CHERRY_ALPHA_UPDATE' ) ) {
@@ -91,10 +97,11 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 		}
 
 		/**
-		 * Remote request to updater API
+		 * Remote request to updater API.
 		 *
-		 * @param array $args request paprams.
-		 * @return array|bool false
+		 * @since  1.0.0
+		 * @param  array      $args Request paprams.
+		 * @return array|bool
 		 */
 		protected function remote_query( $args ) {
 			$query = add_query_arg( $args, $this->api['cloud_url'] );
@@ -111,11 +118,12 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 		}
 
 		/**
-		 * Reanme github foler on update
+		 * Rename github folder on update.
 		 *
-		 * @param  string $upgrate_dir theme folder name.
-		 * @param  string $remote_dir remote folder name.
-		 * @param  object $skin_upgrader upgrader object instance.
+		 * @since  1.0.0
+		 * @param  string $upgrate_dir   Theme folder name.
+		 * @param  string $remote_dir    Remote folder name.
+		 * @param  object $skin_upgrader Upgrader object instance.
 		 * @return string
 		 */
 		public function rename_github_folder( $upgrate_dir, $remote_dir, $skin_upgrader ) {

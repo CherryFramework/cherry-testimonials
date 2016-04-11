@@ -19,34 +19,45 @@ if ( ! class_exists( 'Cherry_Plugin_Update' ) ) {
 	require( 'class-cherry-base-update.php' );
 
 	/**
-	 * Define plugin updater class
+	 * Define plugin updater class.
+	 *
+	 * @since 1.0.0
 	 */
 	class Cherry_Plugin_Update extends Cherry_Base_Update {
 
 		/**
-		 * Init class parameters
+		 * Init class parameters.
 		 *
-		 * @param array $attr input attributes array.
+		 * @since  1.0.0
+		 * @param  array $attr Input attributes array.
 		 * @return void
 		 */
 		public function init( $attr = array() ) {
-			if ( @constant( 'CHERRY_UPDATE' ) !== false ) {
-				$this->base_init( $attr );
 
-				/**
-				 * Need for test update - set_site_transient( 'update_plugins', null );
-				 */
-
-				add_action( 'pre_set_site_transient_update_plugins', array( $this, 'update' ) );
-				add_filter( 'upgrader_source_selection', array( $this, 'rename_github_folder' ), 11, 3 );
-				add_action( 'admin_footer', array( $this, 'change_details_url' ) );
+			if ( ! defined( 'CHERRY_UPDATE' ) ) {
+				return;
 			}
+
+			if ( false === CHERRY_UPDATE ) {
+				return;
+			}
+
+			$this->base_init( $attr );
+
+			/**
+			 * Need for test update - set_site_transient( 'update_plugins', null );
+			 */
+
+			add_action( 'pre_set_site_transient_update_plugins', array( $this, 'update' ) );
+			add_filter( 'upgrader_source_selection', array( $this, 'rename_github_folder' ), 11, 3 );
+			add_action( 'admin_footer', array( $this, 'change_details_url' ) );
 		}
 
 		/**
-		 * Process update
+		 * Process update.
 		 *
-		 * @param object $data update data.
+		 * @since  1.0.0
+		 * @param  object $data Update data.
 		 * @return object
 		 */
 		public function update( $data ) {
@@ -71,8 +82,9 @@ if ( ! class_exists( 'Cherry_Plugin_Update' ) ) {
 		}
 
 		/**
-		 * Change plugin detail URL
+		 * Change plugin detail URL.
 		 *
+		 * @since  1.0.0
 		 * @return void
 		 */
 		public function change_details_url() {
