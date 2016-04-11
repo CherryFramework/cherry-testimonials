@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Testimonials
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A testimonials management plugin for WordPress.
- * Version:     1.1.0
+ * Version:     1.1.1
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-testimonials
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_TESTI_VERSION', '1.1.0' );
+			define( 'CHERRY_TESTI_VERSION', '1.1.1' );
 
 			/**
 			 * Set the version number of the plugin.
@@ -157,9 +157,9 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 
 				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
 				$Cherry_Plugin_Update->init( array(
-						'version'         => CHERRY_TESTI_VERSION,
-						'slug'            => CHERRY_TESTI_SLUG,
-						'repository_name' => CHERRY_TESTI_SLUG,
+					'version'         => CHERRY_TESTI_VERSION,
+					'slug'            => CHERRY_TESTI_SLUG,
+					'repository_name' => CHERRY_TESTI_SLUG,
 				) );
 			}
 		}
@@ -177,7 +177,6 @@ if ( ! class_exists( 'Cherry_Testimonials' ) ) {
 		 * Pass style handle to CSS compiler.
 		 *
 		 * @since 1.0.0
-		 *
 		 * @param array $handles CSS handles to compile.
 		 */
 		function add_style_to_compiler( $handles ) {
