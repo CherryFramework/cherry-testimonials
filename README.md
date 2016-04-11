@@ -4,6 +4,14 @@ A testimonials management plugin for WordPress.
 
 ##Change log##
 
+#### v1.1.1 ####
+
+* FIX: stop using `popuplinks` function (deprecated) - WordPress 4.5 compatibility
+* FIX: wpml-plugin compatibility
+* UPD: functions comment
+* UPD: languages files
+* UPD: file headers
+
 #### v1.1.0 ####
 
 * NEW: Custom fields in metabox - `position`, `company name`
