@@ -205,7 +205,7 @@ class Cherry_Testimonials_Template_Callbacks {
 		}
 
 		if ( isset( $this->atts['clickable_url'] ) && true === $this->atts['clickable_url'] ) {
-			$format = '<a href="%1$s">%1$s</a>';
+			$format = '<a href="%1$s" target="_blank" rel="external">%1$s</a>';
 		} else {
 			$format = '%s';
 		}
@@ -213,7 +213,7 @@ class Cherry_Testimonials_Template_Callbacks {
 		$link = sprintf( $format, esc_url( $post_meta['url'] ) );
 
 		return apply_filters( 'cherry_testimonials_url_template_callbacks',
-			popuplinks( $link ),
+			$link,
 			$post->ID,
 			$this->atts
 		);

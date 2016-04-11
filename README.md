@@ -1,6 +1,31 @@
 # Cherry Testimonials
 A testimonials management plugin for WordPress.
-__Сompatibility: *Cherry Framewokr v.4+*__
+Сompatibility: *Cherry Framewokr v.4+*
+
+##Change log##
+
+#### v1.1.0 ####
+
+* NEW: Custom fields in metabox - `position`, `company name`
+* ADD: Pass template name into testimonials block wrapper CSS classes
+* UPD: Minify CSS
+* UPD: Translated string
+
+#### v1.0.2 ####
+
+* UPD: Optimize a shortcode registration
+* UPD: Optimize conditional rule for a `pre_get_posts` filter
+* UPD: Text to translate
+* UPD: Refactor `Cherry_Testimonials_Data` class
+* UPD: Templates file - added a hooks
+* ADD: `Cherry_Testimonials_Template_Callbacks` class - macros-handler
+* ADD: Macros-button to the Shortcodes Tempalter (swiper_carousel)
+
+#### v1.0.1 ####
+
+* ADD: Compatibility for wpml-plugin
+* UPD: Avatar size on testi page
+* UPD: Updater logic
 
 ## Features
 * CPT Testimonials
