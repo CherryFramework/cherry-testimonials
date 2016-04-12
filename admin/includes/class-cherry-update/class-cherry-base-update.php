@@ -90,7 +90,6 @@ if ( ! class_exists( 'Cherry_Base_Update' ) ) {
 
 			if ( $response && 'not_update' !== $response ) {
 				$this->api['details_url'] = $response->details_url;
-
 				return array( 'version' => $response->new_version, 'package' => $response->package );
 			}
 
