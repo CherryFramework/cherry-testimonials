@@ -64,6 +64,8 @@ class Cherry_Testimonials_Page_Template {
 		// Add a filter to load a custom template for a given post.
 		add_filter( 'single_template', array( $this, 'get_single_template' ) );
 
+		add_filter( 'theme_page_templates', array( $this, 'add_templates' ) );
+
 		// Add your templates to this array.
 		$this->templates = array(
 			'template-testimonials.php' => __( 'Testimonials', 'cherry-testimonials' ),
@@ -83,6 +85,16 @@ class Cherry_Testimonials_Page_Template {
 			'cherry_testimonials_posts_per_archive_page',
 			self::$posts_per_archive_page
 		);
+	}
+
+	/**
+	 * Add services page templates.
+	 *
+	 * @param  array $templates Existing templates array.
+	 * @return array
+	 */
+	public function add_templates( $templates = array() ) {
+		return array_merge( $templates, $this->templates );
 	}
 
 	/**
